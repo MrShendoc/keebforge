@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>KeebForge – Mechanical Keyboard Reviews, Guides & Deals</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="KeebForge helps you craft the perfect mechanical keyboard setup with clear reviews, guides, and deals." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap 5 CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    crossorigin="anonymous"
+  />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark fixed-top bg-transparent">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        KeebForge
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="best-keyboards.html">Best Keyboards</a></li>
+          <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+          <li class="nav-item"><a class="nav-link" href="switches-keycaps.html">Switches &amp; Keycaps</a></li>
+          <li class="nav-item"><a class="nav-link" href="guides.html">Guides</a></li>
+          <li class="nav-item"><a class="nav-link" href="deals.html">Deals</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="resources.html">Resources</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Left content -->
+        <div class="col-lg-6">
+          <div class="hero-eyebrow mb-2">
+            Mechanical keyboards, switches &amp; sound
+          </div>
+          <h1 class="hero-title display-5 fw-bold mb-3">
+            Craft your perfect mechanical keyboard setup.
+          </h1>
+          <p class="hero-subtext lead mb-4">
+            KeebForge helps you pick keyboards, switches and keycaps with clear reviews, no-BS buying guides
+            and curated deals — whether it’s your first board or your tenth custom build.
+          </p>
+
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <a href="best-mechanical-keyboards-overall.html" class="btn btn-kf-primary">
+              Find the best keyboard
+            </a>
+            <a href="keyboard-reviews.html" class="btn btn-kf-secondary">
+              View all reviews
+            </a>
+          </div>
+
+          <div class="hero-search">
+            <input
+              type="search"
+              class="form-control hero-input"
+              placeholder="Search keyboards, switches, keycaps..."
+              aria-label="Search KeebForge"
+            />
+            <button class="btn btn-kf-secondary" type="button">
+              Search
+            </button>
+          </div>
+
+          <p class="mt-3 text-muted small">
+            Popular searches:
+            <a href="best-gaming-keyboards.html">best gaming keyboard</a> ·
+            <a href="how-to-lube-switches.html">how to lube switches</a> ·
+            <a href="pbt-vs-abs-keycaps.html">PBT vs ABS</a>
+          </p>
+        </div>
+
+        <!-- Right visual -->
+        <div class="col-lg-6 mt-4 mt-lg-0">
+          <div class="hero-visual">
+            <div class="hero-keyboard-top">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="small text-uppercase text-muted">KeebForge spotlight</span>
+                <span class="kf-chip">Sound · Feel · Value</span>
+              </div>
+              <div class="hero-keycap-row mb-1">
+                <div class="hero-keycap orange">Linear</div>
+                <div class="hero-keycap blue">Tactile</div>
+                <div class="hero-keycap" style="background:#f5f5f5;">Clicky</div>
+              </div>
+              <div class="hero-keycap-row">
+                <div class="hero-keycap" style="background:#f5f5f5;">Hot-swap</div>
+                <div class="hero-keycap" style="background:#f5f5f5;">Wireless</div>
+                <div class="hero-keycap" style="background:#f5f5f5;">65%</div>
+              </div>
+            </div>
+            <p class="hero-meta mb-0">
+              We test typing feel, gaming performance, build quality and sound so you know exactly what you’re buying.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Featured Reviews Carousel -->
+    <section class="kf-section kf-section-light">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h2 class="section-heading h3 mb-1">Featured Reviews</h2>
+            <p class="section-subtitle mb-0">
+              Deep dives into popular boards with real-world testing and sound impressions.
+            </p>
+          </div>
+          <a href="reviews.html" class="small text-decoration-none">
+            View all reviews &rsaquo;
+          </a>
+        </div>
+
+        <div id="featuredReviewsCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+              <div class="kf-card">
+                <span class="kf-chip mb-2">Keyboard Review</span>
+                <h3 class="kf-card-title mb-2">Keychron K8 Wireless Mechanical Keyboard</h3>
+                <p class="mb-2 small text-muted">
+                  A versatile TKL board that balances wireless convenience, hot-swap support and solid typing feel.
+                </p>
+                <p class="mb-1 small">
+                  Rating: <strong>4.6 / 5</strong> · Switch options: Gateron / Keychron
+                </p>
+                <p class="mb-3 small text-muted">
+                  Great all-rounder for work and play, especially if you bounce between Mac and Windows.
+                </p>
+                <a href="review-keychron-k8.html" class="btn btn-kf-secondary btn-sm">
+                  Read review
+                </a>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+              <div class="kf-card">
+                <span class="kf-chip mb-2">Keyboard Review</span>
+                <h3 class="kf-card-title mb-2">Royal Kludge RK61</h3>
+                <p class="mb-2 small text-muted">
+                  An ultra-compact 60% board that’s budget-friendly and surprisingly capable once tuned.
+                </p>
+                <p class="mb-1 small">
+                  Rating: <strong>4.2 / 5</strong> · 60% · Wireless
+                </p>
+                <p class="mb-3 small text-muted">
+                  Great entry point if you want to try smaller layouts without breaking the bank.
+                </p>
+                <a href="review-royal-kludge-rk61.html" class="btn btn-kf-secondary btn-sm">
+                  Read review
+                </a>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item">
+              <div class="kf-card">
+                <span class="kf-chip mb-2">Switch Review</span>
+                <h3 class="kf-card-title mb-2">Cherry MX Brown</h3>
+                <p class="mb-2 small text-muted">
+                  The classic “safe” tactile switch, but is it still worth buying with so many modern options?
+                </p>
+                <p class="mb-1 small">
+                  Rating: <strong>3.9 / 5</strong> · Tactile · 45g actuation
+                </p>
+                <p class="mb-3 small text-muted">
+                  Reliable and familiar, but often outclassed by newer budget-friendly tactile switches.
+                </p>
+                <a href="review-cherry-mx-brown.html" class="btn btn-kf-secondary btn-sm">
+                  Read review
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#featuredReviewsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#featuredReviewsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top Picks -->
+    <section class="kf-section kf-section-muted">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="section-heading h3 mb-2">Top Picks Right Now</h2>
+          <p class="section-subtitle mb-0">
+            No time to research every board? Start with these three.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <!-- Best Overall -->
+          <div class="col-md-4">
+            <div class="kf-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="kf-badge-best">Best Overall</span>
+                <span class="small text-muted">~$120</span>
+              </div>
+              <h3 class="kf-card-title mb-1">Keychron K8 Pro</h3>
+              <p class="small mb-2 text-muted">
+                Hot-swap, wireless, great sound out of the box and flexible for both work and gaming.
+              </p>
+              <ul class="small mb-3">
+                <li>Gasket-mount feel at a mid-range price</li>
+                <li>Great Mac / Windows support</li>
+                <li>Highly moddable if you want to tweak</li>
+              </ul>
+              <a href="#" class="btn btn-kf-primary btn-sm mb-2">
+                View price on Amazon
+              </a>
+              <br />
+              <a href="review-keychron-k8.html" class="small text-decoration-none">
+                Read full review &rsaquo;
+              </a>
+            </div>
+          </div>
+
+          <!-- Best Budget -->
+          <div class="col-md-4">
+            <div class="kf-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="kf-badge-best">Best Budget</span>
+                <span class="small text-muted">&lt;$60</span>
+              </div>
+              <h3 class="kf-card-title mb-1">Royal Kludge RK61</h3>
+              <p class="small mb-2 text-muted">
+                Compact 60% board that punches above its weight once you mod it a little.
+              </p>
+              <ul class="small mb-3">
+                <li>Wireless 60% layout</li>
+                <li>Good value for first custom-ish board</li>
+                <li>Lots of community mod guides</li>
+              </ul>
+              <a href="#" class="btn btn-kf-primary btn-sm mb-2">
+                View price on Amazon
+              </a>
+              <br />
+              <a href="review-royal-kludge-rk61.html" class="small text-decoration-none">
+                Read full review &rsaquo;
+              </a>
+            </div>
+          </div>
+
+          <!-- Best Gaming -->
+          <div class="col-md-4">
+            <div class="kf-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="kf-badge-best">Best Gaming</span>
+                <span class="small text-muted">~$200</span>
+              </div>
+              <h3 class="kf-card-title mb-1">Logitech G915 TKL</h3>
+              <p class="small mb-2 text-muted">
+                Low-profile wireless gaming keyboard with fast switches and solid software support.
+              </p>
+              <ul class="small mb-3">
+                <li>Low-latency wireless &amp; Lightspeed</li>
+                <li>Great for FPS and fast-paced games</li>
+                <li>Premium build and media controls</li>
+              </ul>
+              <a href="#" class="btn btn-kf-primary btn-sm mb-2">
+                View price on Amazon
+              </a>
+              <br />
+              <a href="reviews.html" class="small text-decoration-none">
+                See more gaming picks &rsaquo;
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Grid -->
+    <section class="kf-section kf-section-light">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="section-heading h3 mb-2">Explore KeebForge</h2>
+          <p class="section-subtitle mb-0">
+            From beginner guides to deep-dive switch tests, start where it helps you most.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <a href="best-keyboards.html" class="text-decoration-none text-reset">
+              <div class="kf-card h-100">
+                <div class="kf-icon-circle mb-3">⌨️</div>
+                <h3 class="kf-card-title mb-2">Best Keyboards</h3>
+                <p class="small text-muted mb-0">
+                  Curated lists by budget, size and use-case so you don’t drown in specs.
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <a href="keyboard-reviews.html" class="text-decoration-none text-reset">
+              <div class="kf-card h-100">
+                <div class="kf-icon-circle mb-3">📝</div>
+                <h3 class="kf-card-title mb-2">Keyboard Reviews</h3>
+                <p class="small text-muted mb-0">
+                  Real-world testing, sound notes, pros/cons and who each board is for.
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <a href="switches-keycaps.html" class="text-decoration-none text-reset">
+              <div class="kf-card h-100">
+                <div class="kf-icon-circle mb-3">🎛️</div>
+                <h3 class="kf-card-title mb-2">Switches &amp; Keycaps</h3>
+                <p class="small text-muted mb-0">
+                  Learn switch types, keycap profiles and materials to tune your feel and sound.
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <a href="guides.html" class="text-decoration-none text-reset">
+              <div class="kf-card h-100">
+                <div class="kf-icon-circle mb-3">🛠️</div>
+                <h3 class="kf-card-title mb-2">Guides &amp; Mods</h3>
+                <p class="small text-muted mb-0">
+                  Step-by-step how-tos for lubing, foam mods, tape mods, and more.
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <a href="deals.html" class="text-decoration-none text-reset">
+              <div class="kf-card h-100">
+                <div class="kf-icon-circle mb-3">💸</div>
+                <h3 class="kf-card-title mb-2">Deals</h3>
+                <p class="small text-muted mb-0">
+                  Daily/weekly deals, Prime Day and Black Friday picks for keebs, switches and keycaps.
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <a href="resources.html" class="text-decoration-none text-reset">
+              <div class="kf-card h-100">
+                <div class="kf-icon-circle mb-3">📚</div>
+                <h3 class="kf-card-title mb-2">Resources</h3>
+                <p class="small text-muted mb-0">
+                  Glossary, comparison tables and a growing sound test library.
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Email Signup -->
+    <section class="kf-section email-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <p class="hero-eyebrow mb-2 text-uppercase" style="color:#f5f5f5;">
+              Get the best keeb deals &amp; guides
+            </p>
+            <h2 class="section-heading h3 mb-2 text-white">
+              Stay ahead of the next drop.
+            </h2>
+            <p class="section-subtitle mb-4 text-white-50">
+              Be the first to know about new keyboard releases, switch deals and deep-dive guides. No spam — just keeb goodness.
+            </p>
+            <form class="row g-2">
+              <div class="col-md-8">
+                <input type="email" class="form-control" placeholder="you@example.com" aria-label="Email address">
+              </div>
+              <div class="col-md-4 d-grid">
+                <button type="submit" class="btn btn-email">
+                  Join the Forge
+                </button>
+              </div>
+            </form>
+            <p class="small mt-2 text-white-50 mb-0">
+              We respect your inbox. Unsubscribe anytime.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest from the Blog -->
+    <section class="kf-section kf-section-light">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h2 class="section-heading h3 mb-1">Latest from the Blog</h2>
+            <p class="section-subtitle mb-0">
+              New releases, trends and community highlights from the keeb world.
+            </p>
+          </div>
+          <a href="blog.html" class="small text-decoration-none">
+            View all posts &rsaquo;
+          </a>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <a href="new-releases.html" class="text-decoration-none text-reset">
+              <div class="kf-card h-100">
+                <span class="kf-chip mb-2">New Releases</span>
+                <h3 class="kf-card-title mb-2">Upcoming compact boards to watch this season</h3>
+                <p class="small text-muted mb-0">
+                  A quick look at interesting 65% and 75% boards that might be worth saving for.
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <a href="brand-spotlights.html" class="text-decoration-none text-reset">
+              <div class="kf-card h-100">
+                <span class="kf-chip mb-2">Brand Spotlight</span>
+                <h3 class="kf-card-title mb-2">Keychron vs Epomaker: which brand fits you?</h3>
+                <p class="small text-muted mb-0">
+                  We compare their lineups, pricing and who each ecosystem is best suited for.
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <a href="trends-community-news.html" class="text-decoration-none text-reset">
+              <div class="kf-card h-100">
+                <span class="kf-chip mb-2">Community</span>
+                <h3 class="kf-card-title mb-2">Are silent switches finally going mainstream?</h3>
+                <p class="small text-muted mb-0">
+                  Office-friendly builds, apartment typing and why silent tactiles are trending.
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="pt-5 pb-3">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-md-4">
+          <h5 class="text-white mb-2">KeebForge</h5>
+          <p class="mb-2">
+            KeebForge exists to help people craft the perfect typing and gaming experience with honest, clear advice on
+            mechanical keyboards, switches, keycaps and mods.
+          </p>
+          <p class="mb-0 small text-kf-orange">
+            Est. 2025 · Built by keeb nerds, for keeb nerds.
+          </p>
+        </div>
+
+        <div class="col-md-2">
+          <h6 class="text-white mb-2">Explore</h6>
+          <ul class="list-unstyled mb-0">
+            <li><a href="best-keyboards.html">Best Keyboards</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+            <li><a href="guides.html">Guides</a></li>
+            <li><a href="deals.html">Deals</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="resources.html">Resources</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-3">
+          <h6 class="text-white mb-2">Site</h6>
+          <ul class="list-unstyled mb-0">
+            <li><a href="about.html">About</a></li>
+            <li><a href="review-methodology.html">Review Methodology</a></li>
+            <li><a href="affiliate-disclosure.html">Affiliate Disclosure</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-3">
+          <h6 class="text-white mb-2">Affiliate Transparency</h6>
+          <p class="mb-2 small">
+            KeebForge participates in affiliate programs, including Amazon Associates. We may earn a commission if you
+            buy through links on this site, at no extra cost to you.
+          </p>
+        </div>
+      </div>
+
+      <hr class="border-secondary my-3" />
+
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <p class="mb-1 mb-md-0 small">
+          &copy; <span id="year"></span> KeebForge. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+  <!-- Navbar scroll + year -->
+  <script>
+    const navbar = document.getElementById('mainNavbar');
+    function handleNavbarScroll() {
+      if (window.scrollY > 10) {
+        navbar.classList.add('navbar-scrolled', 'navbar-light');
+        navbar.classList.remove('navbar-dark');
+      } else {
+        navbar.classList.remove('navbar-scrolled', 'navbar-light');
+        navbar.classList.add('navbar-dark');
+      }
+    }
+    document.addEventListener('scroll', handleNavbarScroll);
+    handleNavbarScroll();
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

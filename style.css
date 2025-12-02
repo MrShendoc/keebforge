@@ -1,0 +1,421 @@
+/* ===========================
+   Fonts & Base
+   =========================== */
+
+:root {
+  --kf-dark: #2c2c2c;
+  --kf-orange: #ff6a00;
+  --kf-copper: #d35400;
+  --kf-light: #ececec;
+  --kf-blue: #3498db;
+  --kf-bg: #f7f7f7;
+  --kf-radius-lg: 1rem;
+  --kf-radius-md: 0.75rem;
+  --kf-transition-fast: 0.15s ease-out;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--kf-dark);
+  background-color: #ffffff;
+  scroll-behavior: smooth;
+}
+
+/* ===========================
+   Navbar
+   =========================== */
+
+.navbar {
+  transition: background-color var(--kf-transition-fast), box-shadow var(--kf-transition-fast), padding var(--kf-transition-fast);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.navbar-brand {
+  font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.nav-link.active,
+.nav-link:focus,
+.nav-link:hover {
+  color: var(--kf-orange) !important;
+}
+
+/* Transparent at top, solid on scroll */
+.navbar-scrolled {
+  background-color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Make top-of-page navbar readable over light hero background */
+.navbar.bg-transparent.navbar-dark {
+  /* subtle dark overlay so white text pops */
+  background: rgba(17, 17, 17, 0.78) !important;
+}
+
+/* When scrolled, force the lighter style to win */
+.navbar-scrolled {
+  background-color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Stronger default link color for the dark (top) state */
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Active/hover state still uses Forge Orange */
+.navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+  color: var(--kf-orange) !important;
+}
+
+/* ===========================
+   Hero
+   =========================== */
+
+.hero-section {
+  min-height: 100vh;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(circle at top left, rgba(255, 106, 0, 0.18), transparent 60%),
+              radial-gradient(circle at top right, rgba(52, 152, 219, 0.18), transparent 55%),
+              #ffffff;
+}
+
+.hero-eyebrow {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--kf-copper);
+  font-weight: 600;
+}
+
+.hero-title {
+  font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.hero-subtext {
+  max-width: 32rem;
+}
+
+.hero-search {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+}
+
+.hero-input {
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 0.9rem;
+}
+
+.hero-input:focus {
+  outline: none;
+  border-color: var(--kf-orange);
+  box-shadow: 0 0 0 0.1rem rgba(255, 106, 0, 0.25);
+}
+
+.hero-visual {
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #2c2c2c, #181818);
+  color: #ffffff;
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.45);
+}
+
+.hero-keyboard-top {
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #3b3b3b, #18181b);
+  margin-bottom: 1rem;
+}
+
+.hero-keycap-row {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.hero-keycap {
+  flex: 1;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.5rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.hero-keycap.orange {
+  background-color: var(--kf-orange);
+  color: #121212;
+}
+
+.hero-keycap.blue {
+  background-color: var(--kf-blue);
+  color: #ffffff;
+}
+
+.hero-meta {
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+/* ===========================
+   Sections & Cards
+   =========================== */
+
+.section-heading {
+  font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 700;
+}
+
+.section-subtitle {
+  color: #5e5e5e;
+  font-size: 0.94rem;
+}
+
+.kf-card {
+  border-radius: var(--kf-radius-lg);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background-color: #ffffff;
+  padding: 1.25rem 1.4rem;
+  height: 100%;
+  transition: transform var(--kf-transition-fast), box-shadow var(--kf-transition-fast), border-color var(--kf-transition-fast);
+}
+
+.kf-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.09);
+  border-color: rgba(255, 106, 0, 0.7);
+}
+
+.kf-card-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.kf-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background-color: var(--kf-light);
+  padding: 0.2rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Top picks badges */
+.kf-badge-best {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background-color: var(--kf-orange);
+  color: #121212;
+  font-weight: 700;
+}
+
+/* ===========================
+   Carousel
+   =========================== */
+
+#featuredReviewsCarousel .carousel-item {
+  transition: transform 0.6s ease, opacity 0.6s ease-out;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  filter: invert(0.4);
+}
+
+/* ===========================
+   Buttons
+   =========================== */
+
+.btn-kf-primary {
+  background: linear-gradient(135deg, var(--kf-orange), var(--kf-copper));
+  border: none;
+  color: #121212;
+  font-weight: 600;
+  border-radius: 999px;
+  padding-inline: 1.4rem;
+  padding-block: 0.7rem;
+}
+
+.btn-kf-primary:hover {
+  background: linear-gradient(135deg, #ff7e23, #e06a1a);
+  color: #111111;
+}
+
+.btn-kf-secondary {
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding-inline: 1.3rem;
+  padding-block: 0.7rem;
+  font-weight: 500;
+  background-color: #ffffff;
+}
+
+.btn-kf-secondary:hover {
+  border-color: var(--kf-orange);
+  color: var(--kf-orange);
+}
+
+/* ===========================
+   Category Grid
+   =========================== */
+
+.kf-icon-circle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f1f1;
+  font-size: 1.2rem;
+}
+
+/* ===========================
+   Email Signup
+   =========================== */
+
+.email-section {
+  background: radial-gradient(circle at top left, rgba(255, 106, 0, 0.16), transparent 55%),
+              radial-gradient(circle at bottom right, rgba(52, 152, 219, 0.16), transparent 55%),
+              #111111;
+  color: #ffffff;
+}
+
+.email-section .form-control {
+  border-radius: 999px;
+  border: none;
+}
+
+.email-section .form-control:focus {
+  box-shadow: 0 0 0 0.1rem rgba(255, 255, 255, 0.5);
+}
+
+.btn-email {
+  border-radius: 999px;
+  border: none;
+  background-color: var(--kf-orange);
+  font-weight: 600;
+  padding-inline: 1.6rem;
+}
+
+.btn-email:hover {
+  background-color: #ff7e23;
+}
+
+/* ===========================
+   Blog / Article Layout
+   =========================== */
+
+.article-hero {
+  padding-top: 7rem;
+  padding-bottom: 2rem;
+  background-color: #fafafa;
+}
+
+.article-body {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.article-body p {
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.article-body h2,
+.article-body h3 {
+  font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ===========================
+   Footer
+   =========================== */
+
+footer {
+  background-color: #111111;
+  color: #bbbbbb;
+  font-size: 0.85rem;
+}
+
+footer a {
+  color: #e3e3e3;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: var(--kf-orange);
+}
+
+.text-kf-orange {
+    color: var(--kf-orange) !important;
+}
+
+/* ===========================
+   Utilities
+   =========================== */
+
+.kf-section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.kf-section-light {
+  background-color: #ffffff;
+}
+
+.kf-section-muted {
+  background-color: #fafafa;
+}
+
+/* Adjust hero on small screens */
+@media (max-width: 767.98px) {
+  .hero-section {
+    padding-top: 5.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .hero-search {
+    flex-direction: column;
+  }
+
+  .hero-visual {
+    margin-top: 2rem;
+  }
+}

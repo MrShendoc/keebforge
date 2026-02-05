@@ -1,0 +1,32 @@
+{
+  "main": [
+    { "label": "Best Keyboards", "url": "/best/" },
+    { "label": "Reviews", "url": "/reviews/" },
+    { "label": "Switches & Keycaps", "url": "/switches-keycaps/" },
+    { "label": "Guides", "url": "/guides/" },
+    { "label": "Deals", "url": "/deals/" },
+    { "label": "News", "url": "/news/" },
+    { "label": "Resources", "url": "/resources/" }
+  ],
+  "footer": {
+    "explore": [
+      { "label": "Best Keyboards", "url": "/best/" },
+      { "label": "Reviews", "url": "/reviews/" },
+      { "label": "Guides", "url": "/guides/" },
+      { "label": "Deals", "url": "/deals/" }
+    ],
+    "resources": [
+      { "label": "Glossary", "url": "/resources/glossary/" },
+      { "label": "Sound Tests", "url": "/resources/sound-tests/" },
+      { "label": "Comparison Tables", "url": "/resources/comparison-tables/" },
+      { "label": "Recommended Tools", "url": "/resources/recommended-tools/" }
+    ],
+    "company": [
+      { "label": "About", "url": "/about/" },
+      { "label": "Methodology", "url": "/methodology/" },
+      { "label": "Affiliate Disclosure", "url": "/affiliate-disclosure/" },
+      { "label": "Privacy Policy", "url": "/privacy/" },
+      { "label": "Contact", "url": "/contact/" }
+    ]
+  }
+}

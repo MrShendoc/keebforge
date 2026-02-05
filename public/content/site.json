@@ -1,0 +1,20 @@
+{
+  "name": "KeebForge",
+  "title": "KeebForge - Craft Your Perfect Typing Experience",
+  "description": "Expert reviews, guides, and deals on mechanical keyboards, switches, and keycaps. Find your perfect typing or gaming setup.",
+  "basePath": "/keebforge",
+  "url": "https://mrshendoc.github.io/keebforge",
+  "language": "en-US",
+  "author": "KeebForge Editorial",
+  "email": "hello@keebforge.com",
+  "social": {
+    "twitter": "",
+    "youtube": "",
+    "discord": "",
+    "reddit": ""
+  },
+  "seo": {
+    "defaultImage": "/keebforge/assets/og-default.jpg",
+    "twitterHandle": "@keebforge"
+  }
+}

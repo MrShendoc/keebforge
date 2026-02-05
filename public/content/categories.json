@@ -1,0 +1,76 @@
+{
+  "categories": [
+    {
+      "id": "best-of",
+      "name": "Best Of",
+      "slug": "best",
+      "description": "Curated lists of the best mechanical keyboards for every budget, size, and use case.",
+      "color": "#FF6A00"
+    },
+    {
+      "id": "reviews",
+      "name": "Reviews",
+      "slug": "reviews",
+      "description": "In-depth, hands-on reviews of keyboards, switches, keycaps, and accessories.",
+      "color": "#3498DB"
+    },
+    {
+      "id": "guides",
+      "name": "Guides",
+      "slug": "guides",
+      "description": "Step-by-step tutorials and educational content for keyboard enthusiasts.",
+      "color": "#27AE60"
+    },
+    {
+      "id": "deals",
+      "name": "Deals",
+      "slug": "deals",
+      "description": "The best current deals on mechanical keyboards and accessories.",
+      "color": "#E74C3C"
+    },
+    {
+      "id": "news",
+      "name": "News",
+      "slug": "news",
+      "description": "Latest announcements, releases, and community updates.",
+      "color": "#9B59B6"
+    }
+  ],
+  "subcategories": {
+    "best": [
+      { "id": "overall", "name": "Overall", "slug": "overall" },
+      { "id": "budget-50", "name": "Under $50", "slug": "budget/under-50" },
+      { "id": "budget-100", "name": "Under $100", "slug": "budget/under-100" },
+      { "id": "budget-200", "name": "Under $200", "slug": "budget/under-200" },
+      { "id": "size-full", "name": "Full-Size", "slug": "size/full-size" },
+      { "id": "size-tkl", "name": "TKL", "slug": "size/tkl" },
+      { "id": "size-65", "name": "65%", "slug": "size/65" },
+      { "id": "size-60", "name": "60%", "slug": "size/60" },
+      { "id": "feature-wireless", "name": "Wireless", "slug": "feature/wireless" },
+      { "id": "feature-hotswap", "name": "Hot-Swappable", "slug": "feature/hot-swappable" },
+      { "id": "feature-rgb", "name": "RGB", "slug": "feature/rgb" },
+      { "id": "feature-lowprofile", "name": "Low Profile", "slug": "feature/low-profile" },
+      { "id": "use-gaming", "name": "Gaming", "slug": "use-case/gaming" },
+      { "id": "use-work", "name": "Work/Typing", "slug": "use-case/work-typing" },
+      { "id": "use-mac", "name": "Mac", "slug": "use-case/mac" },
+      { "id": "use-travel", "name": "Travel", "slug": "use-case/travel" }
+    ],
+    "reviews": [
+      { "id": "keyboards", "name": "Keyboards", "slug": "keyboards" },
+      { "id": "switches", "name": "Switches", "slug": "switches" },
+      { "id": "keycaps", "name": "Keycaps", "slug": "keycaps" },
+      { "id": "accessories", "name": "Accessories", "slug": "accessories" }
+    ],
+    "switches-keycaps": [
+      { "id": "switch-types", "name": "Switch Types", "slug": "switch-types" },
+      { "id": "keycap-profiles", "name": "Keycap Profiles", "slug": "keycap-profiles" },
+      { "id": "materials", "name": "Materials", "slug": "materials" }
+    ],
+    "resources": [
+      { "id": "glossary", "name": "Glossary", "slug": "glossary" },
+      { "id": "sound-tests", "name": "Sound Tests", "slug": "sound-tests" },
+      { "id": "comparison-tables", "name": "Comparison Tables", "slug": "comparison-tables" },
+      { "id": "recommended-tools", "name": "Recommended Tools", "slug": "recommended-tools" }
+    ]
+  }
+}

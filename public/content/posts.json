@@ -1,0 +1,464 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Best Mechanical Keyboards Under $100",
+      "slug": "best-mechanical-keyboards-under-100",
+      "category": "best-of",
+      "subcategory": "budget-100",
+      "url": "/posts/best-mechanical-keyboards-under-100/",
+      "excerpt": "Looking for a quality mechanical keyboard without breaking the bank? We've tested dozens of options to bring you the best keyboards under $100 that deliver premium typing experiences.",
+      "summary": "Our picks for the best mechanical keyboards under $100 include the Keychron K8, Royal Kludge RK84, and Akko 3098B. These boards offer hot-swap, wireless connectivity, and excellent build quality at accessible prices.",
+      "author": "KeebForge Editorial",
+      "publishDate": "",
+      "lastUpdated": "",
+      "readingTime": "12 min read",
+      "tags": ["budget", "mechanical keyboards", "best of", "under 100"],
+      "keyTakeaways": [
+        "Hot-swappable boards let you customize switches without soldering",
+        "Wireless options like Keychron K8 offer great flexibility",
+        "Gasket-mounted boards under $100 provide premium sound and feel",
+        "PBT keycaps are worth prioritizing for durability",
+        "65% and 75% layouts offer the best balance of compactness and functionality"
+      ],
+      "faq": [
+        {
+          "question": "Is a mechanical keyboard worth it under $100?",
+          "answer": "Absolutely. Many sub-$100 mechanical keyboards now offer features previously only found in premium boards, including hot-swap sockets, wireless connectivity, and quality PBT keycaps."
+        },
+        {
+          "question": "What switches should I choose for my first mechanical keyboard?",
+          "answer": "For beginners, we recommend starting with linear (smooth) or tactile (bump feedback) switches. Gateron or Cherry MX Brown for tactile, Gateron Yellow or Red for linear are safe choices."
+        },
+        {
+          "question": "Are budget mechanical keyboards good for gaming?",
+          "answer": "Yes! Most sub-$100 mechanical keyboards have polling rates and response times suitable for gaming. Look for wired options or 2.4GHz wireless for the lowest latency."
+        },
+        {
+          "question": "How long do budget mechanical keyboards last?",
+          "answer": "Quality mechanical switches are rated for 50-100 million keystrokes. Even budget boards should last 5-10+ years with normal use."
+        }
+      ],
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Keychron K8 Review",
+      "slug": "keychron-k8-review",
+      "category": "reviews",
+      "subcategory": "keyboards",
+      "url": "/posts/keychron-k8-review/",
+      "excerpt": "The Keychron K8 is a popular TKL wireless mechanical keyboard that works seamlessly with Mac and Windows. Does it live up to the hype? We put it through extensive testing.",
+      "summary": "The Keychron K8 delivers excellent value with its wireless connectivity, hot-swap option, and Mac-first design. While the stock keycaps could be better, it's a solid choice for most users.",
+      "author": "KeebForge Editorial",
+      "publishDate": "",
+      "lastUpdated": "",
+      "readingTime": "10 min read",
+      "tags": ["keychron", "K8", "review", "TKL", "wireless"],
+      "keyTakeaways": [
+        "Excellent wireless connectivity with Bluetooth and optional 2.4GHz",
+        "Hot-swappable version allows easy switch customization",
+        "Mac-optimized with proper key layout and keycaps included",
+        "Good battery life lasting 1-2 weeks on a charge",
+        "Stock ABS keycaps are the main weak point"
+      ],
+      "faq": [
+        {
+          "question": "Does the Keychron K8 work with Mac?",
+          "answer": "Yes, the K8 is designed with Mac users in mind and includes Mac-specific keycaps. It has a Mac/Windows toggle switch and works seamlessly with macOS."
+        },
+        {
+          "question": "Is the Keychron K8 hot-swappable?",
+          "answer": "The K8 comes in both hot-swap and non-hot-swap versions. We recommend the hot-swap version for flexibility in customizing your switches."
+        },
+        {
+          "question": "What switches does the Keychron K8 come with?",
+          "answer": "The K8 is available with Gateron (Red, Blue, Brown) or Keychron optical switches. The Gateron options are most popular and offer a great typing experience."
+        }
+      ],
+      "featured": true
+    },
+    {
+      "id": 3,
+      "title": "Beginner's Guide to Mechanical Keyboards",
+      "slug": "beginners-guide-mechanical-keyboards",
+      "category": "guides",
+      "subcategory": null,
+      "url": "/posts/beginners-guide-mechanical-keyboards/",
+      "excerpt": "New to mechanical keyboards? This comprehensive guide covers everything you need to know - from switch types to layouts, keycaps to mods. Start your journey here.",
+      "summary": "Mechanical keyboards offer superior typing feel, durability, and customization compared to membrane keyboards. Understanding switch types, keyboard layouts, and basic terminology will help you make informed buying decisions.",
+      "author": "KeebForge Editorial",
+      "publishDate": "",
+      "lastUpdated": "",
+      "readingTime": "15 min read",
+      "tags": ["beginner", "guide", "mechanical keyboards", "switches", "layouts"],
+      "keyTakeaways": [
+        "Mechanical keyboards use individual switches for each key, providing better tactile feedback",
+        "Three main switch types: Linear (smooth), Tactile (bump), Clicky (bump + click)",
+        "Common layouts include Full-size, TKL, 75%, 65%, and 60%",
+        "Hot-swap keyboards let you change switches without soldering",
+        "PBT keycaps are more durable than ABS and resist shine"
+      ],
+      "faq": [
+        {
+          "question": "What is a mechanical keyboard?",
+          "answer": "A mechanical keyboard uses individual mechanical switches under each key instead of a rubber membrane. This provides better tactile feedback, durability, and the ability to customize switches."
+        },
+        {
+          "question": "Why are mechanical keyboards so expensive?",
+          "answer": "Mechanical keyboards require individual switches for each key, higher quality construction, and often include features like hot-swap sockets and premium keycaps. However, budget options under $50 now exist."
+        },
+        {
+          "question": "Are mechanical keyboards better for gaming?",
+          "answer": "Many gamers prefer mechanical keyboards for their consistent actuation, faster response, and durability. Linear switches are popular for gaming due to their smooth, uninterrupted keypresses."
+        },
+        {
+          "question": "How do I know which switch type to choose?",
+          "answer": "Try a switch tester if possible. Generally: Linear for gaming and quiet environments, Tactile for typing with feedback, Clicky if you want audible feedback and don't share a space."
+        }
+      ],
+      "featured": true
+    },
+    {
+      "id": 4,
+      "title": "Best Mechanical Keyboards for Gaming",
+      "slug": "best-mechanical-keyboards-for-gaming",
+      "category": "best-of",
+      "subcategory": "use-gaming",
+      "url": "/posts/best-mechanical-keyboards-for-gaming/",
+      "excerpt": "Gaming demands speed, precision, and reliability. We've tested the top gaming mechanical keyboards to find the best options for competitive and casual gamers alike.",
+      "summary": "The best gaming mechanical keyboards combine low latency, durable switches, and comfortable ergonomics. Our top picks include options for every budget, from budget-friendly to tournament-ready.",
+      "author": "KeebForge Editorial",
+      "publishDate": "",
+      "lastUpdated": "",
+      "readingTime": "14 min read",
+      "tags": ["gaming", "mechanical keyboards", "best of", "esports"],
+      "keyTakeaways": [
+        "Linear switches (Gateron Yellow, Cherry MX Speed) are preferred for gaming",
+        "1000Hz polling rate is standard; 8000Hz offers marginal benefits",
+        "Wired connections offer the lowest latency for competitive play",
+        "TKL and 60% layouts give more mouse space",
+        "Quality stabilizers prevent wobbly modifier keys"
+      ],
+      "faq": [
+        {
+          "question": "What switch type is best for gaming?",
+          "answer": "Linear switches are generally preferred for gaming due to their smooth action without a tactile bump. Popular gaming switches include Cherry MX Speed Silver, Gateron Yellow, and optical switches."
+        },
+        {
+          "question": "Do I need a gaming keyboard for competitive gaming?",
+          "answer": "A quality mechanical keyboard can help, but skill matters more. Any keyboard with consistent actuation, good switches, and 1000Hz polling rate is suitable for competitive gaming."
+        },
+        {
+          "question": "Is wireless good enough for gaming?",
+          "answer": "Modern 2.4GHz wireless keyboards (like those from Razer, Logitech, and Keychron) have latency comparable to wired. Bluetooth is not recommended for competitive gaming."
+        }
+      ],
+      "featured": false
+    },
+    {
+      "id": 5,
+      "title": "Logitech G915 Review",
+      "slug": "logitech-g915-review",
+      "category": "reviews",
+      "subcategory": "keyboards",
+      "url": "/posts/logitech-g915-review/",
+      "excerpt": "The Logitech G915 is a premium low-profile wireless gaming keyboard with a hefty price tag. We test whether its features justify the cost for gamers and typists.",
+      "summary": "The G915 excels in build quality, wireless performance, and RGB lighting. Its low-profile switches take adjustment but offer fast actuation. The high price is the main barrier for most users.",
+      "author": "KeebForge Editorial",
+      "publishDate": "",
+      "lastUpdated": "",
+      "readingTime": "11 min read",
+      "tags": ["logitech", "G915", "review", "wireless", "low-profile", "gaming"],
+      "keyTakeaways": [
+        "Premium aluminum construction with slim, sleek design",
+        "LIGHTSPEED wireless offers 1ms latency",
+        "Low-profile GL switches are fast but take getting used to",
+        "Exceptional battery life (30+ hours with RGB)",
+        "High price point limits its audience"
+      ],
+      "faq": [
+        {
+          "question": "Is the Logitech G915 worth the price?",
+          "answer": "If you value low-profile design, premium build, and reliable wireless, yes. For most users, alternatives like the G815 (wired) or Keychron K5 offer similar features at lower prices."
+        },
+        {
+          "question": "What switches does the G915 use?",
+          "answer": "The G915 uses Logitech's GL mechanical switches, available in Clicky, Tactile, and Linear variants. They're low-profile and rated for 70 million keystrokes."
+        },
+        {
+          "question": "How is the G915 for typing?",
+          "answer": "The low-profile keys take adjustment if you're used to standard mechanical keyboards. Once adapted, typing is comfortable though the reduced travel may affect accuracy initially."
+        }
+      ],
+      "featured": false
+    },
+    {
+      "id": 6,
+      "title": "Best Wireless Mechanical Keyboards",
+      "slug": "best-wireless-mechanical-keyboards",
+      "category": "best-of",
+      "subcategory": "feature-wireless",
+      "url": "/posts/best-wireless-mechanical-keyboards/",
+      "excerpt": "Cut the cord without sacrificing performance. Our roundup of the best wireless mechanical keyboards covers Bluetooth, 2.4GHz, and multi-device options for every use case.",
+      "summary": "Wireless mechanical keyboards have matured significantly, with options like the Keychron Q1 Pro, NuPhy Air75, and Logitech MX Mechanical offering excellent connectivity and battery life.",
+      "author": "KeebForge Editorial",
+      "publishDate": "",
+      "lastUpdated": "",
+      "readingTime": "13 min read",
+      "tags": ["wireless", "bluetooth", "mechanical keyboards", "best of"],
+      "keyTakeaways": [
+        "2.4GHz wireless offers lower latency than Bluetooth for gaming",
+        "Multi-device Bluetooth (3 devices) is essential for productivity",
+        "Battery life ranges from 2 weeks to 6+ months depending on RGB usage",
+        "Hot-swap wireless boards offer the most flexibility",
+        "USB-C charging is now standard across quality options"
+      ],
+      "faq": [
+        {
+          "question": "Is wireless mechanical keyboard good for gaming?",
+          "answer": "Yes, if you choose one with 2.4GHz connectivity. Modern 2.4GHz wireless has latency comparable to wired. Avoid Bluetooth-only keyboards for competitive gaming."
+        },
+        {
+          "question": "How long do wireless mechanical keyboard batteries last?",
+          "answer": "It varies widely: 1-4 weeks with RGB on, 2-6 months with RGB off. Low-profile boards and those without RGB tend to have the longest battery life."
+        },
+        {
+          "question": "Can I use a wireless mechanical keyboard while charging?",
+          "answer": "Most wireless mechanical keyboards support wired mode while charging via USB-C, allowing uninterrupted use."
+        }
+      ],
+      "featured": true
+    },
+    {
+      "id": 7,
+      "title": "Switch Types Explained: Linear, Tactile, and Clicky",
+      "slug": "switch-types-explained",
+      "category": "guides",
+      "subcategory": null,
+      "url": "/posts/switch-types-explained/",
+      "excerpt": "Understanding switch types is fundamental to finding your ideal keyboard. Learn the differences between linear, tactile, and clicky switches, and which is right for you.",
+      "summary": "The three main switch types - linear, tactile, and clicky - each offer distinct typing experiences. Your choice depends on personal preference, use case, and environment.",
+      "author": "KeebForge Editorial",
+      "publishDate": "",
+      "lastUpdated": "",
+      "readingTime": "10 min read",
+      "tags": ["switches", "guide", "linear", "tactile", "clicky"],
+      "keyTakeaways": [
+        "Linear: Smooth keystroke with no bump (gaming, quiet environments)",
+        "Tactile: Noticeable bump at actuation point (typing, office)",
+        "Clicky: Bump + audible click (typists who want feedback)",
+        "Silent variants exist for office and shared spaces",
+        "Actuation force ranges from 35g (light) to 80g (heavy)"
+      ],
+      "faq": [
+        {
+          "question": "What are the best switches for typing?",
+          "answer": "Most typists prefer tactile switches like Cherry MX Brown, Gateron Brown, or enthusiast options like Boba U4T for the feedback without excessive noise."
+        },
+        {
+          "question": "Are clicky switches too loud for office use?",
+          "answer": "Generally yes. Clicky switches can be disruptive in shared spaces. Consider tactile or silent switches for office environments."
+        },
+        {
+          "question": "Can I change switches on any mechanical keyboard?",
+          "answer": "Only if the keyboard is hot-swappable. Non-hot-swap keyboards require desoldering to change switches, which is complex and voids warranties."
+        },
+        {
+          "question": "What is actuation force?",
+          "answer": "Actuation force is the pressure required to register a keypress, measured in grams. Lighter switches (35-45g) are easier to press; heavier switches (55-80g) reduce accidental presses."
+        }
+      ],
+      "featured": false
+    },
+    {
+      "id": 8,
+      "title": "Epomaker TH80 Review",
+      "slug": "epomaker-th80-review",
+      "category": "reviews",
+      "subcategory": "keyboards",
+      "url": "/posts/epomaker-th80-review/",
+      "excerpt": "The Epomaker TH80 packs gasket mounting, a rotary knob, and wireless connectivity at an aggressive price. We test if this budget 75% delivers on its promises.",
+      "summary": "The TH80 offers exceptional value with its gasket mount, triple-mode connectivity, and solid build. Some software quirks and average stock keycaps are minor drawbacks at this price.",
+      "author": "KeebForge Editorial",
+      "publishDate": "",
+      "lastUpdated": "",
+      "readingTime": "9 min read",
+      "tags": ["epomaker", "TH80", "review", "75%", "budget", "wireless"],
+      "keyTakeaways": [
+        "Gasket-mounted construction provides excellent typing feel",
+        "Triple-mode: Bluetooth, 2.4GHz, and wired options",
+        "Rotary encoder knob adds functionality and style",
+        "South-facing LEDs for Cherry profile keycap compatibility",
+        "Outstanding value under $100"
+      ],
+      "faq": [
+        {
+          "question": "Is the Epomaker TH80 good for gaming?",
+          "answer": "Yes, the 2.4GHz wireless mode offers low latency suitable for gaming. The 75% layout preserves function keys while saving desk space."
+        },
+        {
+          "question": "What switches are compatible with the TH80?",
+          "answer": "The TH80 is hot-swappable and compatible with 3-pin and 5-pin MX-style switches. Most aftermarket switches will work."
+        },
+        {
+          "question": "Does the TH80 have software?",
+          "answer": "Yes, Epomaker provides software for RGB customization and key remapping. The software works but isn't as polished as premium brands."
+        }
+      ],
+      "featured": false
+    },
+    {
+      "id": 9,
+      "title": "Best Mechanical Keyboards for Mac",
+      "slug": "best-mechanical-keyboards-for-mac",
+      "category": "best-of",
+      "subcategory": "use-mac",
+      "url": "/posts/best-mechanical-keyboards-for-mac/",
+      "excerpt": "Mac users have specific needs: proper modifier layout, seamless Bluetooth, and aesthetic harmony. These are our picks for the best Mac-compatible mechanical keyboards.",
+      "summary": "The best Mac mechanical keyboards include Keychron's lineup (K-series and Q-series), NuPhy Air, and premium options like the HHKB. All feature Mac-specific layouts and reliable wireless.",
+      "author": "KeebForge Editorial",
+      "publishDate": "",
+      "lastUpdated": "",
+      "readingTime": "12 min read",
+      "tags": ["mac", "apple", "mechanical keyboards", "best of", "wireless"],
+      "keyTakeaways": [
+        "Look for keyboards with Mac-specific keycap legends (⌘, ⌥)",
+        "Mac/Windows toggle switches save configuration hassle",
+        "Stable Bluetooth is essential for wireless Mac use",
+        "Aluminum builds complement Mac aesthetics",
+        "Some keyboards offer macOS-optimized function rows"
+      ],
+      "faq": [
+        {
+          "question": "Do mechanical keyboards work with Mac?",
+          "answer": "Yes, virtually all mechanical keyboards work with Mac. The key difference is whether they include Mac-specific keycaps and a Command/Option layout."
+        },
+        {
+          "question": "Why is Keychron so popular for Mac?",
+          "answer": "Keychron designs keyboards with Mac users in mind, including proper keycap legends, Mac/Win toggle switches, and stable Bluetooth that works reliably with macOS."
+        },
+        {
+          "question": "Can I remap keys on Mac?",
+          "answer": "Yes, using macOS System Preferences (Keyboard > Modifier Keys) or apps like Karabiner-Elements for advanced remapping."
+        }
+      ],
+      "featured": false
+    },
+    {
+      "id": 10,
+      "title": "Royal Kludge RK61 Review",
+      "slug": "royal-kludge-rk61-review",
+      "category": "reviews",
+      "subcategory": "keyboards",
+      "url": "/posts/royal-kludge-rk61-review/",
+      "excerpt": "The Royal Kludge RK61 is one of the most affordable wireless mechanical keyboards. We test whether this budget 60% delivers acceptable quality or if you should save more.",
+      "summary": "The RK61 is a solid entry-level option with wireless connectivity and hot-swap. Build quality is acceptable for the price, though switches and keycaps benefit from upgrades.",
+      "author": "KeebForge Editorial",
+      "publishDate": "",
+      "lastUpdated": "",
+      "readingTime": "8 min read",
+      "tags": ["royal kludge", "RK61", "review", "60%", "budget", "wireless"],
+      "keyTakeaways": [
+        "Excellent entry point under $50",
+        "Triple-mode wireless (Bluetooth, 2.4GHz, wired)",
+        "Hot-swappable for easy switch upgrades",
+        "Compact 60% layout saves desk space",
+        "Stock stabilizers need lubing for best experience"
+      ],
+      "faq": [
+        {
+          "question": "Is the RK61 good for beginners?",
+          "answer": "Yes, it's one of the best starter mechanical keyboards due to its low price, wireless options, and hot-swap capability for future customization."
+        },
+        {
+          "question": "Does the RK61 have arrow keys?",
+          "answer": "As a 60% keyboard, arrow keys are on a function layer (Fn + IJKL or WASD). This takes getting used to but becomes natural with practice."
+        },
+        {
+          "question": "What can I upgrade on the RK61?",
+          "answer": "Common upgrades include: new switches (easy with hot-swap), better keycaps, lubing stabilizers, and adding foam for better acoustics."
+        }
+      ],
+      "featured": false
+    },
+    {
+      "id": 11,
+      "title": "PBT vs ABS Keycaps: Which Should You Choose?",
+      "slug": "pbt-vs-abs-keycaps",
+      "category": "guides",
+      "subcategory": null,
+      "url": "/posts/pbt-vs-abs-keycaps/",
+      "excerpt": "Keycap material significantly affects typing feel and durability. This guide explains the differences between PBT and ABS plastics, and when to choose each.",
+      "summary": "PBT keycaps are more durable and resist shine, while ABS allows for brighter colors and smoother legends. Your choice depends on priorities: longevity (PBT) or aesthetics (ABS).",
+      "author": "KeebForge Editorial",
+      "publishDate": "",
+      "lastUpdated": "",
+      "readingTime": "8 min read",
+      "tags": ["keycaps", "PBT", "ABS", "guide", "materials"],
+      "keyTakeaways": [
+        "PBT: More durable, textured feel, resists shine and yellowing",
+        "ABS: Smoother, brighter colors, tends to develop shine over time",
+        "Doubleshot legends never fade; dye-sub works best on PBT",
+        "PBT keycaps are generally more expensive",
+        "Both materials can be high quality when well-manufactured"
+      ],
+      "faq": [
+        {
+          "question": "Why do ABS keycaps get shiny?",
+          "answer": "ABS plastic wears down from oils and friction, creating a polished, shiny appearance. This is unavoidable with heavy use but some consider it a feature."
+        },
+        {
+          "question": "Are PBT keycaps worth the extra cost?",
+          "answer": "If longevity and texture matter to you, yes. PBT keycaps maintain their texture for years and resist yellowing. For aesthetic builds with specific colors, quality ABS may be preferred."
+        },
+        {
+          "question": "What is doubleshot vs dye-sublimation?",
+          "answer": "Doubleshot uses two plastic layers (legend never fades). Dye-sublimation heats ink into plastic. Both are durable; doubleshot allows more color options, dye-sub is common for PBT."
+        }
+      ],
+      "featured": false
+    },
+    {
+      "id": 12,
+      "title": "Best Mechanical Keyboards Overall",
+      "slug": "best-mechanical-keyboards-overall",
+      "category": "best-of",
+      "subcategory": "overall",
+      "url": "/posts/best-mechanical-keyboards-overall/",
+      "excerpt": "Our definitive guide to the best mechanical keyboards you can buy. From budget to premium, wired to wireless, we rank the top options across all categories.",
+      "summary": "The best overall mechanical keyboards balance build quality, features, and value. Our top picks include the Keychron Q1, Mode Sixty-Five, and budget champion Keychron K8.",
+      "author": "KeebForge Editorial",
+      "publishDate": "",
+      "lastUpdated": "",
+      "readingTime": "18 min read",
+      "tags": ["mechanical keyboards", "best of", "overall", "buyers guide"],
+      "keyTakeaways": [
+        "Keychron Q series offers best value in the $150-200 range",
+        "Budget doesn't mean bad: excellent options exist under $100",
+        "Hot-swap is nearly essential for future customization",
+        "Gasket mounting provides the best typing feel",
+        "Consider your primary use case: gaming vs typing vs mixed"
+      ],
+      "faq": [
+        {
+          "question": "What is the best mechanical keyboard overall?",
+          "answer": "Our top pick is the Keychron Q1 for its combination of build quality, customization options, and reasonable price. The Mode Sixty-Five is our premium choice."
+        },
+        {
+          "question": "How much should I spend on a mechanical keyboard?",
+          "answer": "$70-150 gets you excellent quality. Under $70 is entry-level, $150-300 is enthusiast, and $300+ is premium/custom territory."
+        },
+        {
+          "question": "What keyboard do professionals recommend?",
+          "answer": "Professionals often recommend: Keychron (value), Leopold/Varmilo (reliability), HHKB (programming), and custom builds (enthusiast)."
+        },
+        {
+          "question": "Should I build a custom keyboard?",
+          "answer": "Custom builds offer ultimate personalization but cost more and require research. Start with a quality prebuilt to learn your preferences before committing to custom."
+        }
+      ],
+      "featured": true
+    }
+  ]
+}

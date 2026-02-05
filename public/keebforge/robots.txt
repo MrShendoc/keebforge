@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mrshendoc.github.io/keebforge/sitemap.xml

@@ -77,6 +77,15 @@
           <li><a href="/keebforge/deals/" class="nav__link">Deals</a></li>
         </ul>
         
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="theme-toggle__sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <svg class="theme-toggle__moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+        
         <button class="search-btn" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -96,15 +105,15 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="container hero__inner">
-        <div class="hero__badge">
+        <div class="hero__badge scroll-reveal">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
           Trusted by 10,000+ keyboard enthusiasts
         </div>
-        <h1 class="hero__title">Level Up Your <span>Typing Game</span></h1>
-        <p class="hero__subtitle">No-BS reviews, battle-tested guides, and curated deals on mechanical keyboards. Whether you're fragging noobs or writing code—we've got your back.</p>
-        <div class="hero__actions">
+        <h1 class="hero__title scroll-reveal">Level Up Your <span>Typing Game</span></h1>
+        <p class="hero__subtitle scroll-reveal">No-BS reviews, battle-tested guides, and curated deals on mechanical keyboards. Whether you're fragging noobs or writing code—we've got your back.</p>
+        <div class="hero__actions scroll-reveal">
           <a href="/keebforge/posts/beginners-guide-mechanical-keyboards/" class="btn btn--primary btn--lg">Start Here</a>
           <a href="/keebforge/best/" class="btn btn--outline btn--lg">Best Keyboards</a>
         </div>
@@ -114,14 +123,14 @@
     <!-- Category Tiles -->
     <section class="section">
       <div class="container">
-        <div class="section__header">
+        <div class="section__header scroll-reveal">
           <span class="section__eyebrow">Explore</span>
           <h2 class="section__title">Choose Your Path</h2>
           <p class="section__subtitle">Find exactly what you're looking for</p>
         </div>
         
         <div class="category-tiles">
-          <a href="/keebforge/best/" class="category-tile">
+          <a href="/keebforge/best/" class="category-tile scroll-reveal scroll-reveal--scale" data-delay="1">
             <svg class="category-tile__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
             </svg>
@@ -129,7 +138,7 @@
             <span class="category-tile__count">Curated Lists</span>
           </a>
           
-          <a href="/keebforge/reviews/" class="category-tile">
+          <a href="/keebforge/reviews/" class="category-tile scroll-reveal scroll-reveal--scale" data-delay="2">
             <svg class="category-tile__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -137,7 +146,7 @@
             <span class="category-tile__count">In-Depth Tests</span>
           </a>
           
-          <a href="/keebforge/guides/" class="category-tile">
+          <a href="/keebforge/guides/" class="category-tile scroll-reveal scroll-reveal--scale" data-delay="3">
             <svg class="category-tile__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
             </svg>
@@ -145,7 +154,7 @@
             <span class="category-tile__count">Learn & Build</span>
           </a>
           
-          <a href="/keebforge/deals/" class="category-tile">
+          <a href="/keebforge/deals/" class="category-tile scroll-reveal scroll-reveal--scale" data-delay="4">
             <svg class="category-tile__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
             </svg>
@@ -153,7 +162,7 @@
             <span class="category-tile__count">Save Money</span>
           </a>
           
-          <a href="/keebforge/switches-keycaps/" class="category-tile">
+          <a href="/keebforge/switches-keycaps/" class="category-tile scroll-reveal scroll-reveal--scale" data-delay="5">
             <svg class="category-tile__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
             </svg>
@@ -161,7 +170,7 @@
             <span class="category-tile__count">Components</span>
           </a>
           
-          <a href="/keebforge/resources/" class="category-tile">
+          <a href="/keebforge/resources/" class="category-tile scroll-reveal scroll-reveal--scale" data-delay="6">
             <svg class="category-tile__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
@@ -175,14 +184,14 @@
     <!-- Start Here Section -->
     <section class="section section--alt">
       <div class="container">
-        <div class="section__header">
+        <div class="section__header scroll-reveal">
           <span class="section__eyebrow">New Here?</span>
           <h2 class="section__title">Start Your Journey</h2>
           <p class="section__subtitle">Essential guides for keyboard newcomers</p>
         </div>
         
         <div class="grid grid--3">
-          <article class="card">
+          <article class="card scroll-reveal" data-delay="1">
             <div class="card__body">
               <span class="card__category">Guide</span>
               <h3 class="card__title"><a href="/keebforge/posts/beginners-guide-mechanical-keyboards/">Beginner's Guide to Mechanical Keyboards</a></h3>
@@ -193,7 +202,7 @@
             </div>
           </article>
           
-          <article class="card">
+          <article class="card scroll-reveal" data-delay="2">
             <div class="card__body">
               <span class="card__category">Guide</span>
               <h3 class="card__title"><a href="/keebforge/posts/switch-types-explained/">Switch Types Explained</a></h3>
@@ -204,7 +213,7 @@
             </div>
           </article>
           
-          <article class="card">
+          <article class="card scroll-reveal" data-delay="3">
             <div class="card__body">
               <span class="card__category">Best Of</span>
               <h3 class="card__title"><a href="/keebforge/posts/best-mechanical-keyboards-under-100/">Best Keyboards Under $100</a></h3>
@@ -221,14 +230,14 @@
     <!-- Featured Posts -->
     <section class="section">
       <div class="container">
-        <div class="section__header">
+        <div class="section__header scroll-reveal">
           <span class="section__eyebrow">Latest</span>
           <h2 class="section__title">Featured Articles</h2>
           <p class="section__subtitle">Reviews, guides, and recommendations fresh from the forge</p>
         </div>
         
         <div class="grid grid--3">
-          <article class="card">
+          <article class="card scroll-reveal" data-delay="1">
             <div class="card__body">
               <span class="card__category">Best Of</span>
               <h3 class="card__title"><a href="/keebforge/posts/best-mechanical-keyboards-overall/">Best Mechanical Keyboards Overall</a></h3>
@@ -239,7 +248,7 @@
             </div>
           </article>
           
-          <article class="card">
+          <article class="card scroll-reveal" data-delay="2">
             <div class="card__body">
               <span class="card__category">Review</span>
               <h3 class="card__title"><a href="/keebforge/posts/keychron-k8-review/">Keychron K8 Review</a></h3>
@@ -250,7 +259,7 @@
             </div>
           </article>
           
-          <article class="card">
+          <article class="card scroll-reveal" data-delay="3">
             <div class="card__body">
               <span class="card__category">Best Of</span>
               <h3 class="card__title"><a href="/keebforge/posts/best-wireless-mechanical-keyboards/">Best Wireless Keyboards</a></h3>
@@ -261,7 +270,7 @@
             </div>
           </article>
           
-          <article class="card">
+          <article class="card scroll-reveal" data-delay="4">
             <div class="card__body">
               <span class="card__category">Gaming</span>
               <h3 class="card__title"><a href="/keebforge/posts/best-mechanical-keyboards-for-gaming/">Best Gaming Keyboards</a></h3>
@@ -272,7 +281,7 @@
             </div>
           </article>
           
-          <article class="card">
+          <article class="card scroll-reveal" data-delay="5">
             <div class="card__body">
               <span class="card__category">Review</span>
               <h3 class="card__title"><a href="/keebforge/posts/epomaker-th80-review/">Epomaker TH80 Review</a></h3>
@@ -283,7 +292,7 @@
             </div>
           </article>
           
-          <article class="card">
+          <article class="card scroll-reveal" data-delay="6">
             <div class="card__body">
               <span class="card__category">Guide</span>
               <h3 class="card__title"><a href="/keebforge/posts/pbt-vs-abs-keycaps/">PBT vs ABS Keycaps</a></h3>
@@ -300,7 +309,7 @@
     <!-- Newsletter -->
     <section class="section">
       <div class="container container--narrow">
-        <div class="newsletter">
+        <div class="newsletter scroll-reveal">
           <h2 class="newsletter__title">Stay in the Loop</h2>
           <p class="newsletter__subtitle">Get notified about new reviews, deals, and keyboard drops. No spam, ever.</p>
           <form class="newsletter__form" action="#" method="post">
@@ -377,23 +386,6 @@
       
       <div class="footer__bottom">
         <p>&copy; 2024 KeebForge. All rights reserved.</p>
-        <div class="footer__social">
-          <a href="#" aria-label="Twitter">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-            </svg>
-          </a>
-          <a href="#" aria-label="YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
-            </svg>
-          </a>
-          <a href="#" aria-label="Discord">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
-            </svg>
-          </a>
-        </div>
       </div>
     </div>
   </footer>

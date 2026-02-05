@@ -7,11 +7,82 @@ const BASE_PATH = '/keebforge';
 
 // DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
   initNavigation();
   initSearch();
   initFAQ();
   initFilterChips();
+  initScrollReveal();
 });
+
+/**
+ * Theme Toggle
+ */
+function initTheme() {
+  const toggle = document.querySelector('.theme-toggle');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  
+  // Get saved theme or detect from system
+  function getTheme() {
+    const saved = localStorage.getItem('keebforge-theme');
+    if (saved) return saved;
+    return prefersDark.matches ? 'dark' : 'light';
+  }
+  
+  // Apply theme to document
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+  
+  // Initialize on load
+  applyTheme(getTheme());
+  
+  // Toggle button handler
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || getTheme();
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      localStorage.setItem('keebforge-theme', next);
+    });
+  }
+  
+  // Listen for system preference changes
+  prefersDark.addEventListener('change', (e) => {
+    if (!localStorage.getItem('keebforge-theme')) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+}
+
+/**
+ * Scroll Reveal Animations
+ */
+function initScrollReveal() {
+  const reveals = document.querySelectorAll('.scroll-reveal');
+  
+  if (!reveals.length) return;
+  
+  // Check for reduced motion preference
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    reveals.forEach(el => el.classList.add('scroll-reveal--visible'));
+    return;
+  }
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('scroll-reveal--visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  });
+  
+  reveals.forEach(el => observer.observe(el));
+}
 
 /**
  * Mobile Navigation Toggle

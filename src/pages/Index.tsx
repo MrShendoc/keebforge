@@ -13,12 +13,12 @@ const Index = () => {
           <p className="text-gray-400">
             The static site files are in <code className="bg-gray-700 px-2 py-1 rounded">/public/keebforge/</code>
           </p>
-          <a 
-            href="/keebforge/" 
-            className="inline-block bg-[#FF6A00] hover:bg-[#D35400] text-white font-semibold px-8 py-3 rounded-lg transition-colors"
+          <button 
+            onClick={() => window.location.href = '/keebforge/index.html'}
+            className="inline-block bg-[#FF6A00] hover:bg-[#D35400] text-white font-semibold px-8 py-3 rounded-lg transition-colors cursor-pointer"
           >
             View KeebForge Site →
-          </a>
+          </button>
         </div>
       </div>
     </div>

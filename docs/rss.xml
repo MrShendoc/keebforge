@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>KeebForge</title>
+    <link>https://mrshendoc.github.io/keebforge/</link>
+    <description>Expert reviews, guides, and deals on mechanical keyboards, switches, and keycaps.</description>
+    <language>en-us</language>
+    <atom:link href="https://mrshendoc.github.io/keebforge/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Best Mechanical Keyboards Under $100</title>
+      <link>https://mrshendoc.github.io/keebforge/posts/best-mechanical-keyboards-under-100/</link>
+      <description>Looking for a quality mechanical keyboard without breaking the bank? Our tested picks under $100.</description>
+      <guid>https://mrshendoc.github.io/keebforge/posts/best-mechanical-keyboards-under-100/</guid>
+    </item>
+    <item>
+      <title>Beginner's Guide to Mechanical Keyboards</title>
+      <link>https://mrshendoc.github.io/keebforge/posts/beginners-guide-mechanical-keyboards/</link>
+      <description>Everything you need to know about mechanical keyboards—from switch types to layouts.</description>
+      <guid>https://mrshendoc.github.io/keebforge/posts/beginners-guide-mechanical-keyboards/</guid>
+    </item>
+    <item>
+      <title>Keychron K8 Review</title>
+      <link>https://mrshendoc.github.io/keebforge/posts/keychron-k8-review/</link>
+      <description>A popular TKL wireless mechanical keyboard that works seamlessly with Mac and Windows.</description>
+      <guid>https://mrshendoc.github.io/keebforge/posts/keychron-k8-review/</guid>
+    </item>
+    <item>
+      <title>Best Mechanical Keyboards Overall</title>
+      <link>https://mrshendoc.github.io/keebforge/posts/best-mechanical-keyboards-overall/</link>
+      <description>Our definitive guide to the best mechanical keyboards across all categories.</description>
+      <guid>https://mrshendoc.github.io/keebforge/posts/best-mechanical-keyboards-overall/</guid>
+    </item>
+  </channel>
+</rss>

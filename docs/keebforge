@@ -1,0 +1,5 @@
+This is a placeholder. For local testing, you need to either:
+1. Use the parent directory approach below, OR
+2. Create a symbolic link
+
+See LOCAL_TESTING.md for instructions.

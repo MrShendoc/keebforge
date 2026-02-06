@@ -9,7 +9,11 @@
   // =========================================
   // Configuration
   // =========================================
-  const API_BASE = '/api';
+  // For local testing, change to 'http://localhost:3001/api'
+  // For production, use '/api'
+  const API_BASE = window.location.hostname === 'localhost' 
+    ? 'http://localhost:3001/api' 
+    : '/api';
   
   // State
   let currentScreen = 'login';

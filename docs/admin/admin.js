@@ -473,6 +473,17 @@
     };
   };
 
+  function previewPost() {
+    const slug = $('#post-slug').value.trim();
+    if (!slug) {
+      showToast('Please enter a slug first', 'error');
+      return;
+    }
+    const baseUrl = window.location.origin;
+    const previewUrl = `${baseUrl}/keebforge/posts/${slug}/`;
+    window.open(previewUrl, '_blank');
+  }
+
   // =========================================
   // Categories
   // =========================================
@@ -601,7 +612,8 @@
     // Editor back button
     $('#editor-back').addEventListener('click', () => showScreen('dashboard'));
 
-    // Save buttons
+    // Save/Preview buttons
+    $('#preview-btn').addEventListener('click', previewPost);
     $('#save-draft-btn').addEventListener('click', () => savePost('draft'));
     $('#publish-btn').addEventListener('click', () => savePost('published'));
 

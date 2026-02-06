@@ -1,269 +1,100 @@
 
 
-# Self-Hosted Admin Panel for KeebForge
+# Fix Plan: Local Testing File Sync + Add Preview Functionality
 
-## Overview
+## Summary
 
-This plan creates a **fully self-contained admin system** that works on any cloud hosting or VPS without external dependencies. The admin panel will be a single-page application with its own lightweight backend API.
+Two issues were identified:
+1. **Published posts don't appear** because the backend writes to `docs/` but you're viewing a static copy in `local-test/keebforge/`
+2. **Preview button doesn't work** because it has no click handler implemented
 
 ---
 
-## Architecture
+## Issue 1: Published Posts Not Appearing
+
+### Root Cause
+When you run `Copy-Item` or `xcopy` to create `local-test/keebforge/`, it creates a **one-time snapshot**. The backend writes generated HTML to `docs/`, not to your copy.
+
+### Solution Options
+
+**Option A (Recommended): Serve directly from `docs/` with symlink**
+
+Instead of copying files, create a folder structure using a junction/symlink so changes reflect immediately:
 
 ```text
-+--------------------------------------------------+
-|                   FRONTEND                       |
-|  docs/admin/index.html (Password-protected SPA)  |
-|  - Login screen with username/password           |
-|  - Dashboard with post/category management       |
-|  - Rich text editor for post content             |
-|  - Preview before publishing                     |
-+--------------------------------------------------+
-                       |
-                       v
-+--------------------------------------------------+
-|                   BACKEND API                    |
-|       (Node.js Express - runs on VPS/Cloud)      |
-|  - Authentication (bcrypt hashed passwords)      |
-|  - CRUD for posts (JSON file storage)            |
-|  - CRUD for categories                           |
-|  - Static file regeneration                      |
-+--------------------------------------------------+
-                       |
-                       v
-+--------------------------------------------------+
-|                  DATA STORAGE                    |
-|          (JSON files + HTML generation)          |
-|  - docs/content/posts.json                       |
-|  - docs/content/categories.json                  |
-|  - docs/posts/[slug]/index.html (generated)      |
-+--------------------------------------------------+
+local-test/
+└── keebforge/  → points to ../docs/
 ```
 
----
+**Option B: Re-copy after each publish**
 
-## Files to Create
-
-### Admin Frontend (Static HTML/CSS/JS)
-| File | Purpose |
-|------|---------|
-| `docs/admin/index.html` | Admin SPA with login + dashboard |
-| `docs/admin/admin.css` | Admin-specific styling (dark theme) |
-| `docs/admin/admin.js` | Admin logic (auth, CRUD, API calls) |
-
-### Backend Server (Node.js)
-| File | Purpose |
-|------|---------|
-| `server/package.json` | Dependencies (express, bcrypt, fs-extra) |
-| `server/index.js` | Express server with API routes |
-| `server/auth.js` | Authentication middleware |
-| `server/config.json` | Hashed admin credentials |
-| `server/templates/post.html` | HTML template for generating posts |
-
----
-
-## Features
-
-### Authentication
-- **Username/Password login** with bcrypt-hashed credentials
-- Session-based authentication with secure HTTP-only cookies
-- Auto-logout after inactivity
-- Credentials stored in `server/config.json` (you set on first run)
-
-### Post Management
-- **Create new posts** with title, slug, category, excerpt, content
-- **Rich text editing** using a lightweight Markdown editor
-- **Edit existing posts** - loads from JSON, saves to JSON + regenerates HTML
-- **Delete posts** - removes from JSON + deletes HTML file
-- **Preview posts** before publishing
-
-### Category Management
-- **Create categories** with name, slug, description, color
-- **Edit categories** - update metadata
-- **Delete categories** (with warning if posts exist)
-- **Manage subcategories** for each parent category
-
-### Content Generation
-When you save a post, the backend:
-1. Updates `docs/content/posts.json`
-2. Updates `docs/content/search-index.json`
-3. Generates/updates `docs/posts/[slug]/index.html` from template
-4. Updates category listing pages
-
----
-
-## Admin UI Design
-
-### Login Screen
-```text
-+----------------------------------------+
-|           KEEBFORGE ADMIN              |
-|                                        |
-|   [    Username field    ]             |
-|   [    Password field    ]             |
-|                                        |
-|   [        Login         ]             |
-+----------------------------------------+
+After publishing, manually copy updated files:
+```cmd
+xcopy docs\posts local-test\keebforge\posts /E /Y
 ```
 
-### Dashboard
-```text
-+--------------------------------------------------+
-| KEEBFORGE ADMIN          [Theme Toggle] [Logout] |
-+--------------------------------------------------+
-| [+ New Post]  [+ New Category]                   |
-+--------------------------------------------------+
-| POSTS                           | QUICK STATS    |
-| +---------+-----------+------+  | Posts: 12      |
-| | Title   | Category  | Edit |  | Categories: 5  |
-| +---------+-----------+------+  | Published: 12  |
-| | Best... | Best Of   | [E]  |  | Drafts: 0      |
-| | Keych...| Reviews   | [E]  |  +----------------+
-| | Begin...| Guides    | [E]  |                   |
-| +---------+-----------+------+                   |
-+--------------------------------------------------+
-```
-
-### Post Editor
-```text
-+--------------------------------------------------+
-| [< Back]       Edit Post           [Save] [Delete]|
-+--------------------------------------------------+
-| Title:     [Best Mechanical Keyboards Under $100]|
-| Slug:      [best-mechanical-keyboards-under-100] |
-| Category:  [Dropdown: Best Of v]                 |
-| Excerpt:   [Looking for a quality keyboard...]   |
-+--------------------------------------------------+
-| Content (Markdown):                              |
-| +----------------------------------------------+ |
-| | # Introduction                               | |
-| |                                              | |
-| | Looking for a quality mechanical keyboard...  | |
-| |                                              | |
-| +----------------------------------------------+ |
-+--------------------------------------------------+
-| Key Takeaways:                                   |
-| [+] Hot-swappable boards let you customize...    |
-| [+] Add new takeaway                             |
-+--------------------------------------------------+
-| FAQ:                                             |
-| Q: Is a mechanical keyboard worth it under $100? |
-| A: Absolutely. Many sub-$100 mechanical...       |
-| [+ Add FAQ]                                      |
-+--------------------------------------------------+
-```
+**Changes Required:**
+- Update `LOCAL_TESTING.md` with clearer instructions using junctions/symlinks
 
 ---
 
-## Deployment Instructions
+## Issue 2: Preview Button Not Working
 
-### For VPS/Cloud Hosting:
+### Root Cause
+The HTML has a Preview button (`#preview-btn`) but the JavaScript has no click handler for it.
 
-1. **Install Node.js** on your server (v18+)
+### Solution
+Add the missing event listener and preview function to `docs/admin/admin.js`:
 
-2. **Clone/upload the repository** to your server
+**File: `docs/admin/admin.js`**
 
-3. **Set up the backend**:
-   ```bash
-   cd server
-   npm install
-   npm run setup  # Creates admin credentials
-   npm start      # Runs on port 3001
-   ```
-
-4. **Configure nginx** to:
-   - Serve `/docs` as static files on port 80/443
-   - Proxy `/api/*` to Node.js on port 3001
-
-5. **Set your admin password** on first run
-
-### Sample nginx config:
-```text
-server {
-    listen 80;
-    server_name yourdomain.com;
-    
-    # Serve static files
-    location / {
-        root /path/to/docs;
-        index index.html;
-    }
-    
-    # Proxy API to Node.js
-    location /api {
-        proxy_pass http://localhost:3001;
-    }
+Add a new function around line 453:
+```javascript
+function previewPost() {
+  const slug = $('#post-slug').value.trim();
+  if (!slug) {
+    showToast('Please enter a slug first', 'error');
+    return;
+  }
+  // Open in new tab - works for both local and production
+  const baseUrl = window.location.origin;
+  const previewUrl = `${baseUrl}/keebforge/posts/${slug}/`;
+  window.open(previewUrl, '_blank');
 }
 ```
 
----
-
-## Security Features
-
-1. **Password hashing** - bcrypt with salt rounds
-2. **HTTP-only cookies** - prevents XSS token theft
-3. **CSRF protection** - tokens on state-changing requests
-4. **Rate limiting** - prevents brute force attacks
-5. **Input sanitization** - prevents injection attacks
-6. **Admin-only access** - no public registration
-
----
-
-## Technical Details
-
-### Backend API Endpoints:
-```text
-POST   /api/auth/login      - Authenticate user
-POST   /api/auth/logout     - Clear session
-GET    /api/auth/check      - Verify session is valid
-
-GET    /api/posts           - List all posts
-GET    /api/posts/:slug     - Get single post
-POST   /api/posts           - Create new post
-PUT    /api/posts/:slug     - Update post
-DELETE /api/posts/:slug     - Delete post
-
-GET    /api/categories      - List all categories
-POST   /api/categories      - Create category
-PUT    /api/categories/:id  - Update category
-DELETE /api/categories/:id  - Delete category
+Add event listener in `initEventListeners()` around line 606:
+```javascript
+$('#preview-btn').addEventListener('click', previewPost);
 ```
 
-### Data Flow for Creating a Post:
-1. Admin fills out form in browser
-2. JavaScript POSTs to `/api/posts`
-3. Server validates + authenticates
-4. Server updates `posts.json`
-5. Server regenerates `search-index.json`
-6. Server creates `docs/posts/[slug]/index.html`
-7. Returns success to browser
+---
+
+## Updated Local Testing Instructions
+
+**Using Windows Junction (Recommended):**
+
+1. Open Command Prompt as Administrator
+2. Navigate to project root
+3. Create the junction:
+   ```cmd
+   mkdir local-test
+   mklink /J local-test\keebforge docs
+   ```
+4. Serve from local-test:
+   ```cmd
+   cd local-test
+   npx serve -p 8080
+   ```
+
+Now when you publish, the changes appear immediately because `local-test/keebforge` points directly to `docs/`.
 
 ---
 
-## Files Summary
+## Technical Summary
 
-| Location | File | Purpose |
-|----------|------|---------|
-| `docs/admin/` | `index.html` | Admin SPA |
-| `docs/admin/` | `admin.css` | Admin styles |
-| `docs/admin/` | `admin.js` | Admin logic |
-| `docs/content/` | `posts.json` | Post data (expanded from search-index) |
-| `docs/content/` | `categories.json` | Category data |
-| `server/` | `package.json` | Node.js dependencies |
-| `server/` | `index.js` | Express API server |
-| `server/` | `auth.js` | Auth middleware |
-| `server/` | `config.json` | Admin credentials (hashed) |
-| `server/templates/` | `post.html` | Post page template |
-| `server/` | `generate.js` | Static HTML generator |
-
----
-
-## Why This Approach?
-
-- **No external dependencies** - runs entirely on your VPS
-- **Portable** - copy the folder to any server with Node.js
-- **Simple** - no database to manage, just JSON files
-- **Familiar** - Express.js is widely understood
-- **Secure** - proper auth, hashing, and protections
-- **Maintainable** - clear separation of frontend/backend
+| File | Change |
+|------|--------|
+| `docs/admin/admin.js` | Add `previewPost()` function and click handler for Preview button |
+| `LOCAL_TESTING.md` | Update with junction-based setup for live file updates |
 

@@ -1,0 +1,20 @@
+{
+  "admin": {
+    "username": "admin",
+    "passwordHash": "$2a$12$placeholder.run.npm.setup.to.generate.real.hash"
+  },
+  "session": {
+    "secret": "CHANGE_THIS_TO_A_SECURE_RANDOM_STRING_IN_PRODUCTION",
+    "maxAge": 86400000
+  },
+  "server": {
+    "port": 3001
+  },
+  "paths": {
+    "docs": "../docs",
+    "posts": "../docs/content/posts.json",
+    "categories": "../docs/content/categories.json",
+    "searchIndex": "../docs/content/search-index.json",
+    "templates": "./templates"
+  }
+}

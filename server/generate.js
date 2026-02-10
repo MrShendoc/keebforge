@@ -10,16 +10,20 @@ const sanitizeHtml = require('sanitize-html');
 const config = require('./config.json');
 
 /**
- * Sanitize markdown content
+ * Sanitize HTML content
  */
 function sanitizeContent(content) {
   return sanitizeHtml(content, {
-    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img']),
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'pre', 'code', 'table', 'thead', 'tbody', 'tr', 'th', 'td']),
     allowedAttributes: {
       ...sanitizeHtml.defaults.allowedAttributes,
-      img: ['src', 'alt', 'title', 'width', 'height', 'loading'],
+      img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'style'],
       a: ['href', 'name', 'target', 'rel'],
-      '*': ['id', 'class']
+      '*': ['id', 'class', 'style'],
+      td: ['colspan', 'rowspan'],
+      th: ['colspan', 'rowspan'],
+      pre: ['class'],
+      code: ['class']
     }
   });
 }
@@ -33,6 +37,30 @@ function markdownToHtml(markdown) {
     breaks: true
   });
   return sanitizeContent(html);
+}
+
+/**
+ * Detect if content is HTML (from TinyMCE) or Markdown
+ */
+function isHtmlContent(content) {
+  if (!content) return false;
+  // Check for common HTML tags that indicate TinyMCE output
+  return /<(p|div|h[1-6]|ul|ol|table|img|br|strong|em)\b/i.test(content);
+}
+
+/**
+ * Process content - handles both HTML and Markdown
+ */
+function processContent(content, contentFormat) {
+  if (!content) return '';
+  
+  // If explicitly marked as HTML (from TinyMCE), just sanitize
+  if (contentFormat === 'html' || isHtmlContent(content)) {
+    return sanitizeContent(content);
+  }
+  
+  // Otherwise treat as Markdown
+  return markdownToHtml(content);
 }
 
 /**
@@ -97,8 +125,8 @@ function loadTemplate() {
 async function generatePostHtml(post) {
   const template = loadTemplate();
   
-  // Convert markdown content to HTML
-  const contentHtml = markdownToHtml(post.content || '');
+  // Process content (auto-detects HTML vs Markdown)
+  const contentHtml = processContent(post.content, post.contentFormat);
   
   // Generate components
   const breadcrumbsHtml = generateBreadcrumbs(post.breadcrumbs || []);
@@ -133,8 +161,10 @@ async function generatePostHtml(post) {
  * Update search index
  */
 async function updateSearchIndex(posts) {
+  const now = new Date();
   const searchIndex = posts
     .filter(p => p.status === 'published')
+    .filter(p => !p.publishDate || new Date(p.publishDate) <= now)
     .map(p => ({
       title: p.title,
       slug: p.slug,
@@ -167,14 +197,20 @@ async function deletePostHtml(slug) {
 }
 
 /**
- * Regenerate all posts
+ * Regenerate all posts (skips future-dated)
  */
 async function regenerateAll() {
   const postsPath = path.join(__dirname, config.paths.posts);
   const data = await fs.readJson(postsPath);
+  const now = new Date();
   
   for (const post of data.posts) {
     if (post.status === 'published') {
+      // Skip future-dated posts
+      if (post.publishDate && new Date(post.publishDate) > now) {
+        console.log(`Skipped (scheduled): posts/${post.slug}/`);
+        continue;
+      }
       await generatePostHtml(post);
     }
   }
@@ -191,5 +227,6 @@ module.exports = {
   deletePostHtml,
   regenerateAll,
   markdownToHtml,
-  sanitizeContent
+  sanitizeContent,
+  processContent
 };

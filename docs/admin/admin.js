@@ -1,6 +1,6 @@
 /**
  * KeebForge Admin Panel JavaScript
- * Handles authentication, CRUD operations, and UI interactions
+ * Handles authentication, CRUD operations, WYSIWYG editor, image management, and UI interactions
  */
 
 (function() {
@@ -9,8 +9,6 @@
   // =========================================
   // Configuration
   // =========================================
-  // For local testing, change to 'http://localhost:3001/api'
-  // For production, use '/api'
   const API_BASE = window.location.hostname === 'localhost' 
     ? 'http://localhost:3001/api' 
     : '/api';
@@ -21,6 +19,8 @@
   let categories = [];
   let editingPost = null;
   let editingCategory = null;
+  let tinyEditor = null;
+  let readTimeManualOverride = false;
 
   // =========================================
   // Utility Functions
@@ -38,6 +38,13 @@
     $$('.screen').forEach(s => s.classList.remove('active'));
     $(`#${screenId}-screen`).classList.add('active');
     currentScreen = screenId;
+
+    // Initialize TinyMCE when entering editor
+    if (screenId === 'editor') {
+      initTinyMCE();
+    } else {
+      destroyTinyMCE();
+    }
   }
 
   function showToast(message, type = 'info') {
@@ -54,6 +61,7 @@
   }
 
   function formatDate(dateString) {
+    if (!dateString) return '—';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
       month: 'short',
@@ -62,11 +70,25 @@
     });
   }
 
+  function formatDateTime(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    // Format for datetime-local input
+    const pad = n => String(n).padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  }
+
   function slugify(text) {
     return text
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
+  }
+
+  function getPostStatus(post) {
+    if (post.status === 'draft') return 'draft';
+    if (post.publishDate && new Date(post.publishDate) > new Date()) return 'scheduled';
+    return 'published';
   }
 
   async function api(endpoint, options = {}) {
@@ -80,8 +102,14 @@
       ...options
     };
 
-    if (options.body && typeof options.body === 'object') {
+    if (options.body && typeof options.body === 'object' && !(options.body instanceof FormData)) {
       config.body = JSON.stringify(options.body);
+    }
+
+    // For FormData, remove Content-Type to let browser set boundary
+    if (options.body instanceof FormData) {
+      delete config.headers['Content-Type'];
+      config.body = options.body;
     }
 
     try {
@@ -115,6 +143,98 @@
     const next = current === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('admin-theme', next);
+  }
+
+  // =========================================
+  // TinyMCE WYSIWYG Editor
+  // =========================================
+
+  function initTinyMCE() {
+    if (tinyEditor) return; // Already initialized
+
+    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+
+    tinymce.init({
+      selector: '#post-content',
+      height: 500,
+      menubar: 'file edit insert view format table',
+      plugins: [
+        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap',
+        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+        'insertdatetime', 'media', 'table', 'help', 'wordcount',
+        'codesample', 'emoticons'
+      ],
+      toolbar: 'undo redo | blocks | bold italic underline strikethrough | ' +
+        'alignleft aligncenter alignright alignjustify | ' +
+        'bullist numlist outdent indent | link image codesample | ' +
+        'table emoticons | removeformat code fullscreen help',
+      skin: isDark ? 'oxide-dark' : 'oxide',
+      content_css: isDark ? 'dark' : 'default',
+      content_style: 'body { font-family: Inter, -apple-system, sans-serif; font-size: 16px; line-height: 1.7; }',
+      image_title: true,
+      automatic_uploads: false,
+      file_picker_types: 'image',
+      file_picker_callback: function(callback, value, meta) {
+        openImageLibrary(function(imageUrl) {
+          callback(imageUrl, { alt: '' });
+        });
+      },
+      setup: function(editor) {
+        tinyEditor = editor;
+        editor.on('input change keyup', updateEditorStats);
+        editor.on('init', updateEditorStats);
+      },
+      promotion: false,
+      branding: false
+    });
+  }
+
+  function destroyTinyMCE() {
+    if (tinyEditor) {
+      tinymce.remove('#post-content');
+      tinyEditor = null;
+    }
+  }
+
+  function getEditorContent() {
+    if (tinyEditor) {
+      return tinyEditor.getContent();
+    }
+    return $('#post-content').value;
+  }
+
+  function setEditorContent(content) {
+    if (tinyEditor) {
+      tinyEditor.setContent(content || '');
+    } else {
+      $('#post-content').value = content || '';
+    }
+  }
+
+  // =========================================
+  // Word Count & Read Time
+  // =========================================
+
+  function updateEditorStats() {
+    let text = '';
+    if (tinyEditor) {
+      text = tinyEditor.getContent({ format: 'text' }) || '';
+    } else {
+      text = ($('#post-content').value || '').replace(/<[^>]*>/g, '');
+    }
+
+    const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+    const chars = text.length;
+    const readMin = Math.max(1, Math.ceil(words / 200));
+
+    $('#stat-words').textContent = `${words} word${words !== 1 ? 's' : ''}`;
+    $('#stat-chars').textContent = `${chars} character${chars !== 1 ? 's' : ''}`;
+    $('#stat-readtime').textContent = `~${readMin} min read`;
+
+    // Auto-fill read time unless manually overridden
+    if (!readTimeManualOverride) {
+      $('#post-readtime').value = `${readMin} min`;
+    }
   }
 
   // =========================================
@@ -186,6 +306,7 @@
       $('#stat-posts').textContent = data.stats.totalPosts;
       $('#stat-published').textContent = data.stats.published;
       $('#stat-drafts').textContent = data.stats.drafts;
+      $('#stat-scheduled').textContent = data.stats.scheduled || 0;
       $('#stat-categories').textContent = data.stats.categories;
     } catch (error) {
       showToast('Failed to load stats', 'error');
@@ -214,39 +335,65 @@
   }
 
   // =========================================
-  // Posts Table
+  // Posts Table (with sorting)
   // =========================================
   
-  function renderPostsTable(filter = '') {
+  function renderPostsTable() {
     const tbody = $('#posts-tbody');
-    const searchTerm = $('#posts-search').value.toLowerCase();
+    const searchTerm = ($('#posts-search').value || '').toLowerCase();
     const categoryFilter = $('#posts-filter').value;
+    const sortValue = $('#posts-sort').value || 'updatedAt-desc';
     
     let filtered = posts.filter(post => {
       const matchesSearch = post.title.toLowerCase().includes(searchTerm) ||
-                           post.excerpt.toLowerCase().includes(searchTerm);
+                           (post.excerpt || '').toLowerCase().includes(searchTerm);
       const matchesCategory = !categoryFilter || post.category === categoryFilter;
       return matchesSearch && matchesCategory;
     });
 
+    // Sort
+    const [sortField, sortDir] = sortValue.split('-');
+    filtered.sort((a, b) => {
+      let va, vb;
+      if (sortField === 'title') {
+        va = a.title.toLowerCase();
+        vb = b.title.toLowerCase();
+      } else if (sortField === 'publishDate') {
+        va = a.publishDate || a.createdAt || '';
+        vb = b.publishDate || b.createdAt || '';
+      } else if (sortField === 'status') {
+        va = getPostStatus(a);
+        vb = getPostStatus(b);
+      } else {
+        va = a.updatedAt || '';
+        vb = b.updatedAt || '';
+      }
+      if (va < vb) return sortDir === 'asc' ? -1 : 1;
+      if (va > vb) return sortDir === 'asc' ? 1 : -1;
+      return 0;
+    });
+
     if (filtered.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="5" class="loading">No posts found</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" class="loading">No posts found</td></tr>';
       return;
     }
 
-    tbody.innerHTML = filtered.map(post => `
+    tbody.innerHTML = filtered.map(post => {
+      const displayStatus = getPostStatus(post);
+      return `
       <tr data-slug="${post.slug}">
         <td>
           <strong>${escapeHtml(post.title)}</strong>
-          <br><small style="color: var(--text-dim)">${escapeHtml(post.excerpt.substring(0, 60))}...</small>
+          <br><small style="color: var(--text-dim)">${escapeHtml((post.excerpt || '').substring(0, 60))}...</small>
         </td>
         <td>
           <span class="color-dot" style="background: ${getCategoryColor(post.category)}"></span>
           ${escapeHtml(post.categoryName || post.category)}
         </td>
         <td>
-          <span class="status-badge status-badge--${post.status}">${post.status}</span>
+          <span class="status-badge status-badge--${displayStatus}">${displayStatus}</span>
         </td>
+        <td>${formatDate(post.publishDate)}</td>
         <td>${formatDate(post.updatedAt)}</td>
         <td>
           <div class="table-actions">
@@ -255,7 +402,8 @@
           </div>
         </td>
       </tr>
-    `).join('');
+    `;
+    }).join('');
   }
 
   function getCategoryColor(categoryId) {
@@ -265,7 +413,7 @@
 
   function escapeHtml(text) {
     const div = document.createElement('div');
-    div.textContent = text;
+    div.textContent = text || '';
     return div.innerHTML;
   }
 
@@ -322,13 +470,17 @@
   
   function newPost() {
     editingPost = null;
+    readTimeManualOverride = false;
     $('#editor-title').textContent = 'New Post';
     $('#post-form').reset();
     $('#post-id').value = '';
     $('#post-author').value = 'KeebForge Editorial';
+    $('#post-publishdate').value = '';
     $('#takeaways-list').innerHTML = '';
     $('#faqs-list').innerHTML = '';
     showScreen('editor');
+    // Clear TinyMCE after init
+    setTimeout(() => setEditorContent(''), 300);
   }
 
   window.editPost = async function(slug) {
@@ -339,6 +491,7 @@
     }
 
     editingPost = post;
+    readTimeManualOverride = false;
     $('#editor-title').textContent = 'Edit Post';
     
     // Fill form
@@ -348,10 +501,10 @@
     $('#post-category').value = post.category;
     $('#post-excerpt').value = post.excerpt || '';
     $('#post-summary').value = post.summary || '';
-    $('#post-content').value = post.content || '';
     $('#post-readtime').value = post.readTime || '';
     $('#post-author').value = post.author || 'KeebForge Editorial';
     $('#post-tags').value = (post.tags || []).join(', ');
+    $('#post-publishdate').value = formatDateTime(post.publishDate);
     
     // Fill takeaways
     const takeawaysList = $('#takeaways-list');
@@ -364,6 +517,11 @@
     (post.faqs || []).forEach(f => addFaq(f.question, f.answer));
     
     showScreen('editor');
+    // Set content in TinyMCE after init
+    setTimeout(() => {
+      setEditorContent(post.content || '');
+      updateEditorStats();
+    }, 300);
   };
 
   function addTakeaway(value = '') {
@@ -404,6 +562,8 @@
     const category = $('#post-category').value;
     const categoryObj = categories.find(c => c.id === category);
 
+    const publishDateVal = $('#post-publishdate').value;
+
     return {
       title: $('#post-title').value.trim(),
       slug: $('#post-slug').value.trim(),
@@ -411,18 +571,25 @@
       categoryName: categoryObj ? categoryObj.name : 'General',
       excerpt: $('#post-excerpt').value.trim(),
       summary: $('#post-summary').value.trim(),
-      content: $('#post-content').value,
+      content: getEditorContent(),
+      contentFormat: 'html',
       keyTakeaways: takeaways,
       faqs: faqs,
       readTime: $('#post-readtime').value.trim() || '5 min',
       author: $('#post-author').value.trim() || 'KeebForge Editorial',
-      tags: $('#post-tags').value.split(',').map(t => t.trim()).filter(t => t)
+      tags: $('#post-tags').value.split(',').map(t => t.trim()).filter(t => t),
+      publishDate: publishDateVal ? new Date(publishDateVal).toISOString() : null
     };
   }
 
   async function savePost(status = 'draft') {
     const data = collectFormData();
     data.status = status;
+
+    // If scheduled (future date), keep status as published but the generator will handle it
+    if (status === 'published' && data.publishDate && new Date(data.publishDate) > new Date()) {
+      data.status = 'published'; // Server will check date during generation
+    }
 
     if (!data.title || !data.slug) {
       showToast('Title and slug are required', 'error');
@@ -483,6 +650,105 @@
     const previewUrl = `${baseUrl}/keebforge/posts/${slug}/`;
     window.open(previewUrl, '_blank');
   }
+
+  // =========================================
+  // Image Management
+  // =========================================
+
+  let imagePickerCallback = null;
+
+  function openImageLibrary(callback) {
+    imagePickerCallback = callback || null;
+    $('#image-modal').classList.add('active');
+    loadImages();
+  }
+
+  async function loadImages() {
+    const grid = $('#image-grid');
+    grid.innerHTML = '<p class="image-grid__empty">Loading...</p>';
+
+    try {
+      const data = await api('/images');
+      const images = data.images || [];
+
+      if (images.length === 0) {
+        grid.innerHTML = '<p class="image-grid__empty">No images uploaded yet</p>';
+        return;
+      }
+
+      grid.innerHTML = images.map(img => `
+        <div class="image-card" data-url="${escapeHtml(img.url)}">
+          <div class="image-card__preview">
+            <img src="${escapeHtml(img.url)}" alt="${escapeHtml(img.name)}" loading="lazy">
+          </div>
+          <div class="image-card__info">
+            <span class="image-card__name" title="${escapeHtml(img.name)}">${escapeHtml(img.name)}</span>
+            <span class="image-card__size">${formatFileSize(img.size)}</span>
+          </div>
+          <div class="image-card__actions">
+            ${imagePickerCallback ? `<button class="btn btn--sm btn--primary" onclick="insertImage('${escapeHtml(img.url)}')">Insert</button>` : ''}
+            <button class="btn btn--sm btn--ghost" onclick="copyImageUrl('${escapeHtml(img.url)}')">Copy URL</button>
+            <button class="btn btn--sm btn--ghost" onclick="deleteImage('${escapeHtml(img.name)}')">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    } catch (error) {
+      grid.innerHTML = '<p class="image-grid__empty">Failed to load images</p>';
+    }
+  }
+
+  function formatFileSize(bytes) {
+    if (!bytes) return '';
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / 1048576).toFixed(1) + ' MB';
+  }
+
+  async function uploadImage(file) {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await fetch(`${API_BASE}/upload`, {
+        method: 'POST',
+        credentials: 'include',
+        body: formData
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Upload failed');
+      showToast(`Uploaded: ${file.name}`, 'success');
+      loadImages();
+    } catch (error) {
+      showToast(error.message || 'Upload failed', 'error');
+    }
+  }
+
+  window.insertImage = function(url) {
+    if (imagePickerCallback) {
+      imagePickerCallback(url);
+      imagePickerCallback = null;
+    } else if (tinyEditor) {
+      tinyEditor.insertContent(`<img src="${url}" alt="" />`);
+    }
+    closeModal('image-modal');
+  };
+
+  window.copyImageUrl = function(url) {
+    navigator.clipboard.writeText(url).then(() => {
+      showToast('URL copied!', 'success');
+    });
+  };
+
+  window.deleteImage = async function(filename) {
+    if (!confirm(`Delete image "${filename}"?`)) return;
+    try {
+      await api(`/images/${encodeURIComponent(filename)}`, { method: 'DELETE' });
+      showToast('Image deleted', 'success');
+      loadImages();
+    } catch (error) {
+      showToast(error.message || 'Failed to delete image', 'error');
+    }
+  };
 
   // =========================================
   // Categories
@@ -578,12 +844,18 @@
   
   window.closeModal = function(modalId) {
     $(`#${modalId}`).classList.remove('active');
+    if (modalId === 'image-modal') {
+      imagePickerCallback = null;
+    }
   };
 
   // Close modal on backdrop click
   document.addEventListener('click', (e) => {
     if (e.target.classList.contains('modal')) {
       e.target.classList.remove('active');
+      if (e.target.id === 'image-modal') {
+        imagePickerCallback = null;
+      }
     }
   });
 
@@ -617,6 +889,9 @@
     $('#save-draft-btn').addEventListener('click', () => savePost('draft'));
     $('#publish-btn').addEventListener('click', () => savePost('published'));
 
+    // Image library button
+    $('#image-library-btn').addEventListener('click', () => openImageLibrary());
+
     // Category form
     $('#category-form').addEventListener('submit', saveCategory);
 
@@ -630,9 +905,10 @@
       });
     });
 
-    // Posts search and filter
+    // Posts search, filter, and sort
     $('#posts-search').addEventListener('input', () => renderPostsTable());
     $('#posts-filter').addEventListener('change', () => renderPostsTable());
+    $('#posts-sort').addEventListener('change', () => renderPostsTable());
 
     // Auto-generate slug from title
     $('#post-title').addEventListener('input', (e) => {
@@ -651,6 +927,38 @@
     // Add takeaway/FAQ buttons
     $('#add-takeaway').addEventListener('click', () => addTakeaway());
     $('#add-faq').addEventListener('click', () => addFaq());
+
+    // Read time manual override detection
+    $('#post-readtime').addEventListener('input', () => {
+      readTimeManualOverride = true;
+    });
+
+    // Image upload - file input
+    $('#image-file-input').addEventListener('change', (e) => {
+      Array.from(e.target.files).forEach(uploadImage);
+      e.target.value = '';
+    });
+
+    // Image upload - drag and drop
+    const dropArea = $('#image-upload-area');
+    ['dragenter', 'dragover'].forEach(evt => {
+      dropArea.addEventListener(evt, (e) => {
+        e.preventDefault();
+        dropArea.classList.add('drag-over');
+      });
+    });
+    ['dragleave', 'drop'].forEach(evt => {
+      dropArea.addEventListener(evt, (e) => {
+        e.preventDefault();
+        dropArea.classList.remove('drag-over');
+      });
+    });
+    dropArea.addEventListener('drop', (e) => {
+      const files = e.dataTransfer.files;
+      Array.from(files).forEach(f => {
+        if (f.type.startsWith('image/')) uploadImage(f);
+      });
+    });
   }
 
   // =========================================
@@ -670,3 +978,4 @@
     init();
   }
 })();
+

@@ -11,6 +11,7 @@ const rateLimit = require('express-rate-limit');
 const fs = require('fs-extra');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+const multer = require('multer');
 
 const auth = require('./auth');
 const generate = require('./generate');
@@ -19,24 +20,57 @@ const config = require('./config.json');
 const app = express();
 const PORT = process.env.PORT || config.server.port || 3001;
 
+// ============================================
+// IMAGE UPLOAD CONFIG
+// ============================================
+
+const uploadsDir = path.join(__dirname, config.paths.docs, 'assets', 'uploads');
+fs.ensureDirSync(uploadsDir);
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadsDir),
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    const name = path.basename(file.originalname, ext)
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+    const unique = Date.now().toString(36);
+    cb(null, `${name}-${unique}${ext}`);
+  }
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  fileFilter: (req, file, cb) => {
+    const allowed = /\.(jpg|jpeg|png|gif|webp|svg|avif)$/i;
+    if (allowed.test(path.extname(file.originalname))) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed'));
+    }
+  }
+});
+
 // Trust proxy for rate limiting behind nginx
 app.set('trust proxy', 1);
 
 // Security middleware
 app.use(helmet({
-  contentSecurityPolicy: false // Disable CSP for admin panel
+  contentSecurityPolicy: false
 }));
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // 100 requests per window
+  windowMs: 15 * 60 * 1000,
+  max: 100,
   message: { success: false, error: 'Too many requests' }
 });
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 5, // 5 login attempts per 15 minutes
+  max: 5,
   message: { success: false, error: 'Too many login attempts' }
 });
 
@@ -61,7 +95,7 @@ app.use(session({
   cookie: {
     secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
-    maxAge: config.session.maxAge || 86400000, // 24 hours
+    maxAge: config.session.maxAge || 86400000,
     sameSite: 'lax'
   }
 }));
@@ -116,15 +150,14 @@ app.post('/api/posts', auth.requireAuth, async (req, res) => {
     
     const {
       title, slug, category, categoryName, excerpt, summary,
-      content, keyTakeaways, faqs, breadcrumbs, readTime, author, tags, status
+      content, contentFormat, keyTakeaways, faqs, breadcrumbs,
+      readTime, author, tags, status, publishDate
     } = req.body;
     
-    // Validate required fields
     if (!title || !slug) {
       return res.status(400).json({ success: false, error: 'Title and slug are required' });
     }
     
-    // Check for duplicate slug
     if (data.posts.find(p => p.slug === slug)) {
       return res.status(400).json({ success: false, error: 'Post with this slug already exists' });
     }
@@ -138,6 +171,7 @@ app.post('/api/posts', auth.requireAuth, async (req, res) => {
       excerpt: generate.sanitizeContent(excerpt || ''),
       summary: generate.sanitizeContent(summary || excerpt || ''),
       content: content || '',
+      contentFormat: contentFormat || 'markdown',
       keyTakeaways: keyTakeaways || [],
       faqs: faqs || [],
       breadcrumbs: breadcrumbs || [
@@ -149,6 +183,7 @@ app.post('/api/posts', auth.requireAuth, async (req, res) => {
       author: author || 'KeebForge Editorial',
       tags: tags || [],
       status: status || 'draft',
+      publishDate: publishDate || null,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
@@ -156,10 +191,12 @@ app.post('/api/posts', auth.requireAuth, async (req, res) => {
     data.posts.push(newPost);
     await fs.writeJson(postsPath, data, { spaces: 2 });
     
-    // Generate HTML if published
+    // Generate HTML if published and not future-dated
     if (newPost.status === 'published') {
-      await generate.generatePostHtml(newPost);
-      await generate.updateSearchIndex(data.posts);
+      if (!newPost.publishDate || new Date(newPost.publishDate) <= new Date()) {
+        await generate.generatePostHtml(newPost);
+        await generate.updateSearchIndex(data.posts);
+      }
     }
     
     res.json({ success: true, post: newPost });
@@ -182,16 +219,13 @@ app.put('/api/posts/:slug', auth.requireAuth, async (req, res) => {
     const existingPost = data.posts[index];
     const updates = req.body;
     
-    // If slug is changing, check for conflicts
     if (updates.slug && updates.slug !== req.params.slug) {
       if (data.posts.find(p => p.slug === updates.slug)) {
         return res.status(400).json({ success: false, error: 'Post with new slug already exists' });
       }
-      // Delete old HTML file
       await generate.deletePostHtml(req.params.slug);
     }
     
-    // Merge updates
     const updatedPost = {
       ...existingPost,
       ...updates,
@@ -199,7 +233,6 @@ app.put('/api/posts/:slug', auth.requireAuth, async (req, res) => {
       updatedAt: new Date().toISOString()
     };
     
-    // Sanitize text fields
     if (updates.title) updatedPost.title = generate.sanitizeContent(updates.title);
     if (updates.excerpt) updatedPost.excerpt = generate.sanitizeContent(updates.excerpt);
     if (updates.summary) updatedPost.summary = generate.sanitizeContent(updates.summary);
@@ -207,11 +240,14 @@ app.put('/api/posts/:slug', auth.requireAuth, async (req, res) => {
     data.posts[index] = updatedPost;
     await fs.writeJson(postsPath, data, { spaces: 2 });
     
-    // Regenerate HTML
+    // Regenerate HTML (skip future-dated)
     if (updatedPost.status === 'published') {
-      await generate.generatePostHtml(updatedPost);
+      if (!updatedPost.publishDate || new Date(updatedPost.publishDate) <= new Date()) {
+        await generate.generatePostHtml(updatedPost);
+      } else {
+        await generate.deletePostHtml(updatedPost.slug);
+      }
     } else {
-      // If unpublished, delete HTML
       await generate.deletePostHtml(updatedPost.slug);
     }
     
@@ -234,14 +270,9 @@ app.delete('/api/posts/:slug', auth.requireAuth, async (req, res) => {
       return res.status(404).json({ success: false, error: 'Post not found' });
     }
     
-    // Remove from array
     data.posts.splice(index, 1);
     await fs.writeJson(postsPath, data, { spaces: 2 });
-    
-    // Delete HTML file
     await generate.deletePostHtml(req.params.slug);
-    
-    // Update search index
     await generate.updateSearchIndex(data.posts);
     
     res.json({ success: true, message: 'Post deleted' });
@@ -257,7 +288,6 @@ app.delete('/api/posts/:slug', auth.requireAuth, async (req, res) => {
 
 const categoriesPath = path.join(__dirname, config.paths.categories);
 
-// Get all categories
 app.get('/api/categories', auth.requireAuth, async (req, res) => {
   try {
     const data = await fs.readJson(categoriesPath);
@@ -268,7 +298,6 @@ app.get('/api/categories', auth.requireAuth, async (req, res) => {
   }
 });
 
-// Create category
 app.post('/api/categories', auth.requireAuth, async (req, res) => {
   try {
     const data = await fs.readJson(categoriesPath);
@@ -278,7 +307,6 @@ app.post('/api/categories', auth.requireAuth, async (req, res) => {
       return res.status(400).json({ success: false, error: 'Name and slug required' });
     }
     
-    // Check for duplicate
     if (data.categories.find(c => c.id === slug || c.slug === slug)) {
       return res.status(400).json({ success: false, error: 'Category already exists' });
     }
@@ -303,7 +331,6 @@ app.post('/api/categories', auth.requireAuth, async (req, res) => {
   }
 });
 
-// Update category
 app.put('/api/categories/:id', auth.requireAuth, async (req, res) => {
   try {
     const data = await fs.readJson(categoriesPath);
@@ -319,7 +346,6 @@ app.put('/api/categories/:id', auth.requireAuth, async (req, res) => {
       ...updates
     };
     
-    // Sanitize
     if (updates.name) updatedCategory.name = generate.sanitizeContent(updates.name);
     if (updates.description) updatedCategory.description = generate.sanitizeContent(updates.description);
     
@@ -333,13 +359,11 @@ app.put('/api/categories/:id', auth.requireAuth, async (req, res) => {
   }
 });
 
-// Delete category
 app.delete('/api/categories/:id', auth.requireAuth, async (req, res) => {
   try {
     const data = await fs.readJson(categoriesPath);
     const postsData = await fs.readJson(postsPath);
     
-    // Check if posts exist in this category
     const postsInCategory = postsData.posts.filter(p => p.category === req.params.id);
     if (postsInCategory.length > 0) {
       return res.status(400).json({
@@ -366,10 +390,80 @@ app.delete('/api/categories/:id', auth.requireAuth, async (req, res) => {
 });
 
 // ============================================
+// IMAGE ROUTES
+// ============================================
+
+// Upload image
+app.post('/api/upload', auth.requireAuth, upload.single('image'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ success: false, error: 'No image file provided' });
+  }
+
+  const imageUrl = `/keebforge/assets/uploads/${req.file.filename}`;
+  res.json({
+    success: true,
+    image: {
+      name: req.file.filename,
+      url: imageUrl,
+      size: req.file.size
+    }
+  });
+});
+
+// List images
+app.get('/api/images', auth.requireAuth, async (req, res) => {
+  try {
+    await fs.ensureDir(uploadsDir);
+    const files = await fs.readdir(uploadsDir);
+    const images = [];
+
+    for (const file of files) {
+      const ext = path.extname(file).toLowerCase();
+      if (/\.(jpg|jpeg|png|gif|webp|svg|avif)$/.test(ext)) {
+        const stat = await fs.stat(path.join(uploadsDir, file));
+        images.push({
+          name: file,
+          url: `/keebforge/assets/uploads/${file}`,
+          size: stat.size,
+          modified: stat.mtime
+        });
+      }
+    }
+
+    images.sort((a, b) => new Date(b.modified) - new Date(a.modified));
+    res.json({ success: true, images });
+  } catch (error) {
+    console.error('Error listing images:', error);
+    res.status(500).json({ success: false, error: 'Failed to list images' });
+  }
+});
+
+// Delete image
+app.delete('/api/images/:filename', auth.requireAuth, async (req, res) => {
+  try {
+    const filename = req.params.filename;
+    // Sanitize filename to prevent path traversal
+    if (filename.includes('..') || filename.includes('/') || filename.includes('\\')) {
+      return res.status(400).json({ success: false, error: 'Invalid filename' });
+    }
+
+    const filePath = path.join(uploadsDir, filename);
+    if (await fs.pathExists(filePath)) {
+      await fs.remove(filePath);
+      res.json({ success: true, message: 'Image deleted' });
+    } else {
+      res.status(404).json({ success: false, error: 'Image not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    res.status(500).json({ success: false, error: 'Failed to delete image' });
+  }
+});
+
+// ============================================
 // UTILITY ROUTES
 // ============================================
 
-// Regenerate all posts
 app.post('/api/regenerate', auth.requireAuth, async (req, res) => {
   try {
     await generate.regenerateAll();
@@ -380,14 +474,19 @@ app.post('/api/regenerate', auth.requireAuth, async (req, res) => {
   }
 });
 
-// Stats endpoint
 app.get('/api/stats', auth.requireAuth, async (req, res) => {
   try {
     const postsData = await fs.readJson(postsPath);
     const categoriesData = await fs.readJson(categoriesPath);
     
-    const published = postsData.posts.filter(p => p.status === 'published').length;
+    const now = new Date();
+    const published = postsData.posts.filter(p => 
+      p.status === 'published' && (!p.publishDate || new Date(p.publishDate) <= now)
+    ).length;
     const drafts = postsData.posts.filter(p => p.status === 'draft').length;
+    const scheduled = postsData.posts.filter(p => 
+      p.status === 'published' && p.publishDate && new Date(p.publishDate) > now
+    ).length;
     
     res.json({
       success: true,
@@ -395,6 +494,7 @@ app.get('/api/stats', auth.requireAuth, async (req, res) => {
         totalPosts: postsData.posts.length,
         published,
         drafts,
+        scheduled,
         categories: categoriesData.categories.length
       }
     });

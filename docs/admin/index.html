@@ -8,6 +8,7 @@
   <link rel="icon" type="image/png" href="../assets/logo-icon.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="admin.css">
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
   <div id="app">
@@ -72,6 +73,10 @@
               <div class="stat-label">Drafts</div>
             </div>
             <div class="stat-card">
+              <div class="stat-value" id="stat-scheduled">-</div>
+              <div class="stat-label">Scheduled</div>
+            </div>
+            <div class="stat-card">
               <div class="stat-value" id="stat-categories">-</div>
               <div class="stat-label">Categories</div>
             </div>
@@ -106,6 +111,14 @@
               <select id="posts-filter" class="filter-select">
                 <option value="">All Categories</option>
               </select>
+              <select id="posts-sort" class="filter-select">
+                <option value="updatedAt-desc">Last Updated</option>
+                <option value="title-asc">Title A-Z</option>
+                <option value="title-desc">Title Z-A</option>
+                <option value="publishDate-desc">Publish Date (Newest)</option>
+                <option value="publishDate-asc">Publish Date (Oldest)</option>
+                <option value="status-asc">Status</option>
+              </select>
             </div>
             <div class="table-container">
               <table class="data-table" id="posts-table">
@@ -114,12 +127,13 @@
                     <th>Title</th>
                     <th>Category</th>
                     <th>Status</th>
+                    <th>Publish Date</th>
                     <th>Updated</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody id="posts-tbody">
-                  <tr><td colspan="5" class="loading">Loading posts...</td></tr>
+                  <tr><td colspan="6" class="loading">Loading posts...</td></tr>
                 </tbody>
               </table>
             </div>
@@ -157,6 +171,10 @@
         </button>
         <h2 id="editor-title">Edit Post</h2>
         <div class="editor-actions">
+          <button id="image-library-btn" class="btn btn--ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            Images
+          </button>
           <button id="preview-btn" class="btn btn--ghost">Preview</button>
           <button id="save-draft-btn" class="btn btn--secondary">Save Draft</button>
           <button id="publish-btn" class="btn btn--primary">Publish</button>
@@ -202,9 +220,18 @@
 
           <div class="form-row">
             <div class="form-group form-group--large">
-              <label for="post-content">Content (Markdown)</label>
-              <textarea id="post-content" name="content" rows="20" placeholder="Write your post content in Markdown..."></textarea>
+              <label for="post-content">Content</label>
+              <textarea id="post-content" name="content" rows="20" placeholder="Write your post content..."></textarea>
             </div>
+          </div>
+
+          <!-- Editor Stats Bar -->
+          <div class="editor-stats">
+            <span id="stat-words">0 words</span>
+            <span class="editor-stats__sep">·</span>
+            <span id="stat-chars">0 characters</span>
+            <span class="editor-stats__sep">·</span>
+            <span id="stat-readtime">~0 min read</span>
           </div>
 
           <!-- Key Takeaways -->
@@ -228,7 +255,8 @@
           <div class="form-row">
             <div class="form-group">
               <label for="post-readtime">Read Time</label>
-              <input type="text" id="post-readtime" name="readTime" placeholder="5 min">
+              <input type="text" id="post-readtime" name="readTime" placeholder="Auto-calculated">
+              <small>Auto-filled from word count. Override if needed.</small>
             </div>
             <div class="form-group">
               <label for="post-author">Author</label>
@@ -237,7 +265,12 @@
           </div>
 
           <div class="form-row">
-            <div class="form-group form-group--large">
+            <div class="form-group">
+              <label for="post-publishdate">Publish Date</label>
+              <input type="datetime-local" id="post-publishdate" name="publishDate">
+              <small>Leave empty to publish immediately. Future dates = scheduled.</small>
+            </div>
+            <div class="form-group">
               <label for="post-tags">Tags (comma-separated)</label>
               <input type="text" id="post-tags" name="tags" placeholder="keyboard, review, gaming">
             </div>
@@ -285,6 +318,24 @@
             <button type="submit" class="btn btn--primary">Save</button>
           </div>
         </form>
+      </div>
+    </div>
+
+    <!-- Image Library Modal -->
+    <div id="image-modal" class="modal">
+      <div class="modal-content modal-content--wide">
+        <div class="modal-header">
+          <h3>Image Library</h3>
+          <button type="button" class="btn btn--ghost btn--sm" onclick="closeModal('image-modal')">✕</button>
+        </div>
+        <div class="image-upload-area" id="image-upload-area">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="40" height="40"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <p>Drag & drop images here or <label for="image-file-input" class="upload-link">browse</label></p>
+          <input type="file" id="image-file-input" accept="image/*" multiple hidden>
+        </div>
+        <div id="image-grid" class="image-grid">
+          <p class="image-grid__empty">No images uploaded yet</p>
+        </div>
       </div>
     </div>
 

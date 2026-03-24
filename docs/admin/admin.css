@@ -407,8 +407,9 @@ body {
   display: none;
 }
 
-:root:not([data-theme]), [data-theme="dark"] {
-  .icon-sun { display: block; }
+:root:not([data-theme]) .icon-sun,
+[data-theme="dark"] .icon-sun {
+  display: block;
 }
 
 [data-theme="light"] .icon-moon {

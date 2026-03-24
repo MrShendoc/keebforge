@@ -86,6 +86,9 @@ app.use(cors({
 // Body parsing
 app.use(express.json({ limit: '10mb' }));
 
+// Serve static files from docs (for uploaded images, etc.)
+app.use('/keebforge', express.static(path.join(__dirname, config.paths.docs)));
+
 // Session configuration
 app.use(session({
   name: 'keebforge_session',
